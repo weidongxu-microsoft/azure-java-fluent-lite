@@ -9,7 +9,7 @@ import com.azure.core.annotation.ServiceClient;
 import com.azure.core.annotation.ServiceMethod;
 import com.azure.core.management.exception.ManagementException;
 import com.azure.core.util.Context;
-import com.azure.resourcemanager.generated.storage.fluent.TableServicesImpl;
+import com.azure.resourcemanager.generated.storage.fluent.TableServicesClientImpl;
 import com.azure.resourcemanager.generated.storage.fluent.inner.ListTableServicesInner;
 import com.azure.resourcemanager.generated.storage.fluent.inner.TableServicePropertiesInner;
 import com.azure.resourcemanager.generated.storage.models.CorsRules;
@@ -17,10 +17,10 @@ import com.azure.resourcemanager.generated.storage.models.CorsRules;
 /** Initializes a new instance of the synchronous StorageManagementClient type. */
 @ServiceClient(builder = StorageManagementClientBuilder.class)
 public final class TableServicesClient {
-    private TableServicesImpl serviceClient;
+    private TableServicesClientImpl serviceClient;
 
     /** Initializes an instance of TableServices client. */
-    TableServicesClient(TableServicesImpl serviceClient) {
+    TableServicesClient(TableServicesClientImpl serviceClient) {
         this.serviceClient = serviceClient;
     }
 

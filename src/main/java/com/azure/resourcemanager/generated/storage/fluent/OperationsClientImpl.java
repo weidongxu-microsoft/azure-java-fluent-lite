@@ -29,8 +29,8 @@ import com.azure.resourcemanager.generated.storage.fluent.inner.OperationListRes
 import reactor.core.publisher.Mono;
 
 /** An instance of this class provides access to all the operations defined in Operations. */
-public final class OperationsImpl {
-    private final ClientLogger logger = new ClientLogger(OperationsImpl.class);
+public final class OperationsClientImpl {
+    private final ClientLogger logger = new ClientLogger(OperationsClientImpl.class);
 
     /** The proxy service used to perform REST calls. */
     private final OperationsService service;
@@ -39,11 +39,11 @@ public final class OperationsImpl {
     private final StorageManagementClientImpl client;
 
     /**
-     * Initializes an instance of OperationsImpl.
+     * Initializes an instance of OperationsClientImpl.
      *
      * @param client the instance of the service client containing this operation class.
      */
-    OperationsImpl(StorageManagementClientImpl client) {
+    OperationsClientImpl(StorageManagementClientImpl client) {
         this.service =
             RestProxy.create(OperationsService.class, client.getHttpPipeline(), client.getSerializerAdapter());
         this.client = client;

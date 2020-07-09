@@ -9,7 +9,7 @@ import com.azure.core.annotation.ServiceClient;
 import com.azure.core.annotation.ServiceMethod;
 import com.azure.core.management.exception.ManagementException;
 import com.azure.core.util.Context;
-import com.azure.resourcemanager.generated.storage.fluent.QueueServicesImpl;
+import com.azure.resourcemanager.generated.storage.fluent.QueueServicesClientImpl;
 import com.azure.resourcemanager.generated.storage.fluent.inner.ListQueueServicesInner;
 import com.azure.resourcemanager.generated.storage.fluent.inner.QueueServicePropertiesInner;
 import com.azure.resourcemanager.generated.storage.models.CorsRules;
@@ -17,10 +17,10 @@ import com.azure.resourcemanager.generated.storage.models.CorsRules;
 /** Initializes a new instance of the synchronous StorageManagementClient type. */
 @ServiceClient(builder = StorageManagementClientBuilder.class)
 public final class QueueServicesClient {
-    private QueueServicesImpl serviceClient;
+    private QueueServicesClientImpl serviceClient;
 
     /** Initializes an instance of QueueServices client. */
-    QueueServicesClient(QueueServicesImpl serviceClient) {
+    QueueServicesClient(QueueServicesClientImpl serviceClient) {
         this.serviceClient = serviceClient;
     }
 

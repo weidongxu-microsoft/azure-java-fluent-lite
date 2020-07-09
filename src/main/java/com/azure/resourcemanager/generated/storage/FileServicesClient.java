@@ -9,17 +9,17 @@ import com.azure.core.annotation.ServiceClient;
 import com.azure.core.annotation.ServiceMethod;
 import com.azure.core.management.exception.ManagementException;
 import com.azure.core.util.Context;
-import com.azure.resourcemanager.generated.storage.fluent.FileServicesImpl;
+import com.azure.resourcemanager.generated.storage.fluent.FileServicesClientImpl;
 import com.azure.resourcemanager.generated.storage.fluent.inner.FileServiceItemsInner;
 import com.azure.resourcemanager.generated.storage.fluent.inner.FileServicePropertiesInner;
 
 /** Initializes a new instance of the synchronous StorageManagementClient type. */
 @ServiceClient(builder = StorageManagementClientBuilder.class)
 public final class FileServicesClient {
-    private FileServicesImpl serviceClient;
+    private FileServicesClientImpl serviceClient;
 
     /** Initializes an instance of FileServices client. */
-    FileServicesClient(FileServicesImpl serviceClient) {
+    FileServicesClient(FileServicesClientImpl serviceClient) {
         this.serviceClient = serviceClient;
     }
 

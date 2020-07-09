@@ -5,7 +5,6 @@
 package com.azure.resourcemanager.generated.storage.fluent;
 
 import com.azure.core.annotation.BodyParam;
-import com.azure.core.annotation.Delete;
 import com.azure.core.annotation.ExpectedResponses;
 import com.azure.core.annotation.Get;
 import com.azure.core.annotation.Headers;
@@ -24,102 +23,99 @@ import com.azure.core.management.exception.ManagementException;
 import com.azure.core.util.Context;
 import com.azure.core.util.FluxUtil;
 import com.azure.core.util.logging.ClientLogger;
-import com.azure.resourcemanager.generated.storage.fluent.inner.ManagementPolicyInner;
-import com.azure.resourcemanager.generated.storage.models.ManagementPolicyName;
-import com.azure.resourcemanager.generated.storage.models.ManagementPolicySchema;
+import com.azure.resourcemanager.generated.storage.fluent.inner.ListQueueServicesInner;
+import com.azure.resourcemanager.generated.storage.fluent.inner.QueueServicePropertiesInner;
+import com.azure.resourcemanager.generated.storage.models.CorsRules;
 import reactor.core.publisher.Mono;
 
-/** An instance of this class provides access to all the operations defined in ManagementPolicies. */
-public final class ManagementPoliciesImpl {
-    private final ClientLogger logger = new ClientLogger(ManagementPoliciesImpl.class);
+/** An instance of this class provides access to all the operations defined in QueueServices. */
+public final class QueueServicesClientImpl {
+    private final ClientLogger logger = new ClientLogger(QueueServicesClientImpl.class);
 
     /** The proxy service used to perform REST calls. */
-    private final ManagementPoliciesService service;
+    private final QueueServicesService service;
 
     /** The service client containing this operation class. */
     private final StorageManagementClientImpl client;
 
     /**
-     * Initializes an instance of ManagementPoliciesImpl.
+     * Initializes an instance of QueueServicesClientImpl.
      *
      * @param client the instance of the service client containing this operation class.
      */
-    ManagementPoliciesImpl(StorageManagementClientImpl client) {
+    QueueServicesClientImpl(StorageManagementClientImpl client) {
         this.service =
-            RestProxy.create(ManagementPoliciesService.class, client.getHttpPipeline(), client.getSerializerAdapter());
+            RestProxy.create(QueueServicesService.class, client.getHttpPipeline(), client.getSerializerAdapter());
         this.client = client;
     }
 
     /**
-     * The interface defining all the services for StorageManagementClientManagementPolicies to be used by the proxy
-     * service to perform REST calls.
+     * The interface defining all the services for StorageManagementClientQueueServices to be used by the proxy service
+     * to perform REST calls.
      */
     @Host("{$host}")
     @ServiceInterface(name = "StorageManagementCli")
-    private interface ManagementPoliciesService {
+    private interface QueueServicesService {
         @Headers({"Accept: application/json", "Content-Type: application/json"})
         @Get(
             "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage"
-                + "/storageAccounts/{accountName}/managementPolicies/{managementPolicyName}")
+                + "/storageAccounts/{accountName}/queueServices")
         @ExpectedResponses({200})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<ManagementPolicyInner>> get(
+        Mono<Response<ListQueueServicesInner>> list(
             @HostParam("$host") String endpoint,
             @PathParam("resourceGroupName") String resourceGroupName,
             @PathParam("accountName") String accountName,
             @QueryParam("api-version") String apiVersion,
             @PathParam("subscriptionId") String subscriptionId,
-            @PathParam("managementPolicyName") ManagementPolicyName managementPolicyName,
             Context context);
 
         @Headers({"Accept: application/json", "Content-Type: application/json"})
         @Put(
             "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage"
-                + "/storageAccounts/{accountName}/managementPolicies/{managementPolicyName}")
+                + "/storageAccounts/{accountName}/queueServices/{queueServiceName}")
         @ExpectedResponses({200})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<ManagementPolicyInner>> createOrUpdate(
+        Mono<Response<QueueServicePropertiesInner>> setServiceProperties(
             @HostParam("$host") String endpoint,
             @PathParam("resourceGroupName") String resourceGroupName,
             @PathParam("accountName") String accountName,
             @QueryParam("api-version") String apiVersion,
             @PathParam("subscriptionId") String subscriptionId,
-            @PathParam("managementPolicyName") ManagementPolicyName managementPolicyName,
-            @BodyParam("application/json") ManagementPolicyInner properties,
+            @PathParam("queueServiceName") String queueServiceName,
+            @BodyParam("application/json") QueueServicePropertiesInner parameters,
             Context context);
 
-        @Headers({"Accept: application/json;q=0.9", "Content-Type: application/json"})
-        @Delete(
+        @Headers({"Accept: application/json", "Content-Type: application/json"})
+        @Get(
             "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage"
-                + "/storageAccounts/{accountName}/managementPolicies/{managementPolicyName}")
-        @ExpectedResponses({200, 204})
+                + "/storageAccounts/{accountName}/queueServices/{queueServiceName}")
+        @ExpectedResponses({200})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<Void>> delete(
+        Mono<Response<QueueServicePropertiesInner>> getServiceProperties(
             @HostParam("$host") String endpoint,
             @PathParam("resourceGroupName") String resourceGroupName,
             @PathParam("accountName") String accountName,
             @QueryParam("api-version") String apiVersion,
             @PathParam("subscriptionId") String subscriptionId,
-            @PathParam("managementPolicyName") ManagementPolicyName managementPolicyName,
+            @PathParam("queueServiceName") String queueServiceName,
             Context context);
     }
 
     /**
-     * Gets the managementpolicy associated with the specified storage account.
+     * List all queue services for the storage account.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
-     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the managementpolicy associated with the specified storage account.
+     * @return the response.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<Response<ManagementPolicyInner>> getWithResponseAsync(
-        String resourceGroupName, String accountName, ManagementPolicyName managementPolicyName) {
+    public Mono<Response<ListQueueServicesInner>> listWithResponseAsync(String resourceGroupName, String accountName) {
         if (this.client.getEndpoint() == null) {
             return Mono
                 .error(
@@ -138,43 +134,37 @@ public final class ManagementPoliciesImpl {
                 .error(
                     new IllegalArgumentException(
                         "Parameter this.client.getSubscriptionId() is required and cannot be null."));
-        }
-        if (managementPolicyName == null) {
-            return Mono
-                .error(new IllegalArgumentException("Parameter managementPolicyName is required and cannot be null."));
         }
         return FluxUtil
             .withContext(
                 context ->
                     service
-                        .get(
+                        .list(
                             this.client.getEndpoint(),
                             resourceGroupName,
                             accountName,
                             this.client.getApiVersion(),
                             this.client.getSubscriptionId(),
-                            managementPolicyName,
                             context))
             .subscriberContext(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext())));
     }
 
     /**
-     * Gets the managementpolicy associated with the specified storage account.
+     * List all queue services for the storage account.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
-     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the managementpolicy associated with the specified storage account.
+     * @return the response.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<Response<ManagementPolicyInner>> getWithResponseAsync(
-        String resourceGroupName, String accountName, ManagementPolicyName managementPolicyName, Context context) {
+    public Mono<Response<ListQueueServicesInner>> listWithResponseAsync(
+        String resourceGroupName, String accountName, Context context) {
         if (this.client.getEndpoint() == null) {
             return Mono
                 .error(
@@ -194,41 +184,34 @@ public final class ManagementPoliciesImpl {
                     new IllegalArgumentException(
                         "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
-        if (managementPolicyName == null) {
-            return Mono
-                .error(new IllegalArgumentException("Parameter managementPolicyName is required and cannot be null."));
-        }
         context = this.client.mergeContext(context);
         return service
-            .get(
+            .list(
                 this.client.getEndpoint(),
                 resourceGroupName,
                 accountName,
                 this.client.getApiVersion(),
                 this.client.getSubscriptionId(),
-                managementPolicyName,
                 context);
     }
 
     /**
-     * Gets the managementpolicy associated with the specified storage account.
+     * List all queue services for the storage account.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
-     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the managementpolicy associated with the specified storage account.
+     * @return the response.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<ManagementPolicyInner> getAsync(
-        String resourceGroupName, String accountName, ManagementPolicyName managementPolicyName) {
-        return getWithResponseAsync(resourceGroupName, accountName, managementPolicyName)
+    public Mono<ListQueueServicesInner> listAsync(String resourceGroupName, String accountName) {
+        return listWithResponseAsync(resourceGroupName, accountName)
             .flatMap(
-                (Response<ManagementPolicyInner> res) -> {
+                (Response<ListQueueServicesInner> res) -> {
                     if (res.getValue() != null) {
                         return Mono.just(res.getValue());
                     } else {
@@ -238,25 +221,23 @@ public final class ManagementPoliciesImpl {
     }
 
     /**
-     * Gets the managementpolicy associated with the specified storage account.
+     * List all queue services for the storage account.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
-     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the managementpolicy associated with the specified storage account.
+     * @return the response.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<ManagementPolicyInner> getAsync(
-        String resourceGroupName, String accountName, ManagementPolicyName managementPolicyName, Context context) {
-        return getWithResponseAsync(resourceGroupName, accountName, managementPolicyName, context)
+    public Mono<ListQueueServicesInner> listAsync(String resourceGroupName, String accountName, Context context) {
+        return listWithResponseAsync(resourceGroupName, accountName, context)
             .flatMap(
-                (Response<ManagementPolicyInner> res) -> {
+                (Response<ListQueueServicesInner> res) -> {
                     if (res.getValue() != null) {
                         return Mono.just(res.getValue());
                     } else {
@@ -266,65 +247,57 @@ public final class ManagementPoliciesImpl {
     }
 
     /**
-     * Gets the managementpolicy associated with the specified storage account.
+     * List all queue services for the storage account.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
-     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the managementpolicy associated with the specified storage account.
+     * @return the response.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public ManagementPolicyInner get(
-        String resourceGroupName, String accountName, ManagementPolicyName managementPolicyName) {
-        return getAsync(resourceGroupName, accountName, managementPolicyName).block();
+    public ListQueueServicesInner list(String resourceGroupName, String accountName) {
+        return listAsync(resourceGroupName, accountName).block();
     }
 
     /**
-     * Gets the managementpolicy associated with the specified storage account.
+     * List all queue services for the storage account.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
-     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the managementpolicy associated with the specified storage account.
+     * @return the response.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public ManagementPolicyInner get(
-        String resourceGroupName, String accountName, ManagementPolicyName managementPolicyName, Context context) {
-        return getAsync(resourceGroupName, accountName, managementPolicyName, context).block();
+    public ListQueueServicesInner list(String resourceGroupName, String accountName, Context context) {
+        return listAsync(resourceGroupName, accountName, context).block();
     }
 
     /**
-     * Sets the managementpolicy to the specified storage account.
+     * Sets the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
+     * (Cross-Origin Resource Sharing) rules.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
-     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
-     * @param policy The Storage Account ManagementPolicies Rules. See more details in:
-     *     https://docs.microsoft.com/en-us/azure/storage/common/storage-lifecycle-managment-concepts.
+     * @param cors Sets the CORS rules. You can include up to five CorsRule elements in the request.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the Get Storage Account ManagementPolicies operation response.
+     * @return the properties of a storage account’s Queue service.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<Response<ManagementPolicyInner>> createOrUpdateWithResponseAsync(
-        String resourceGroupName,
-        String accountName,
-        ManagementPolicyName managementPolicyName,
-        ManagementPolicySchema policy) {
+    public Mono<Response<QueueServicePropertiesInner>> setServicePropertiesWithResponseAsync(
+        String resourceGroupName, String accountName, CorsRules cors) {
         if (this.client.getEndpoint() == null) {
             return Mono
                 .error(
@@ -344,54 +317,46 @@ public final class ManagementPoliciesImpl {
                     new IllegalArgumentException(
                         "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
-        if (managementPolicyName == null) {
-            return Mono
-                .error(new IllegalArgumentException("Parameter managementPolicyName is required and cannot be null."));
+        if (cors != null) {
+            cors.validate();
         }
-        if (policy != null) {
-            policy.validate();
-        }
-        ManagementPolicyInner properties = new ManagementPolicyInner();
-        properties.withPolicy(policy);
+        final String queueServiceName = "default";
+        QueueServicePropertiesInner parameters = new QueueServicePropertiesInner();
+        parameters.withCors(cors);
         return FluxUtil
             .withContext(
                 context ->
                     service
-                        .createOrUpdate(
+                        .setServiceProperties(
                             this.client.getEndpoint(),
                             resourceGroupName,
                             accountName,
                             this.client.getApiVersion(),
                             this.client.getSubscriptionId(),
-                            managementPolicyName,
-                            properties,
+                            queueServiceName,
+                            parameters,
                             context))
             .subscriberContext(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext())));
     }
 
     /**
-     * Sets the managementpolicy to the specified storage account.
+     * Sets the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
+     * (Cross-Origin Resource Sharing) rules.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
-     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
-     * @param policy The Storage Account ManagementPolicies Rules. See more details in:
-     *     https://docs.microsoft.com/en-us/azure/storage/common/storage-lifecycle-managment-concepts.
+     * @param cors Sets the CORS rules. You can include up to five CorsRule elements in the request.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the Get Storage Account ManagementPolicies operation response.
+     * @return the properties of a storage account’s Queue service.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<Response<ManagementPolicyInner>> createOrUpdateWithResponseAsync(
-        String resourceGroupName,
-        String accountName,
-        ManagementPolicyName managementPolicyName,
-        ManagementPolicySchema policy,
-        Context context) {
+    public Mono<Response<QueueServicePropertiesInner>> setServicePropertiesWithResponseAsync(
+        String resourceGroupName, String accountName, CorsRules cors, Context context) {
         if (this.client.getEndpoint() == null) {
             return Mono
                 .error(
@@ -411,52 +376,45 @@ public final class ManagementPoliciesImpl {
                     new IllegalArgumentException(
                         "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
-        if (managementPolicyName == null) {
-            return Mono
-                .error(new IllegalArgumentException("Parameter managementPolicyName is required and cannot be null."));
+        if (cors != null) {
+            cors.validate();
         }
-        if (policy != null) {
-            policy.validate();
-        }
-        ManagementPolicyInner properties = new ManagementPolicyInner();
-        properties.withPolicy(policy);
+        final String queueServiceName = "default";
+        QueueServicePropertiesInner parameters = new QueueServicePropertiesInner();
+        parameters.withCors(cors);
         context = this.client.mergeContext(context);
         return service
-            .createOrUpdate(
+            .setServiceProperties(
                 this.client.getEndpoint(),
                 resourceGroupName,
                 accountName,
                 this.client.getApiVersion(),
                 this.client.getSubscriptionId(),
-                managementPolicyName,
-                properties,
+                queueServiceName,
+                parameters,
                 context);
     }
 
     /**
-     * Sets the managementpolicy to the specified storage account.
+     * Sets the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
+     * (Cross-Origin Resource Sharing) rules.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
-     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
-     * @param policy The Storage Account ManagementPolicies Rules. See more details in:
-     *     https://docs.microsoft.com/en-us/azure/storage/common/storage-lifecycle-managment-concepts.
+     * @param cors Sets the CORS rules. You can include up to five CorsRule elements in the request.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the Get Storage Account ManagementPolicies operation response.
+     * @return the properties of a storage account’s Queue service.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<ManagementPolicyInner> createOrUpdateAsync(
-        String resourceGroupName,
-        String accountName,
-        ManagementPolicyName managementPolicyName,
-        ManagementPolicySchema policy) {
-        return createOrUpdateWithResponseAsync(resourceGroupName, accountName, managementPolicyName, policy)
+    public Mono<QueueServicePropertiesInner> setServicePropertiesAsync(
+        String resourceGroupName, String accountName, CorsRules cors) {
+        return setServicePropertiesWithResponseAsync(resourceGroupName, accountName, cors)
             .flatMap(
-                (Response<ManagementPolicyInner> res) -> {
+                (Response<QueueServicePropertiesInner> res) -> {
                     if (res.getValue() != null) {
                         return Mono.just(res.getValue());
                     } else {
@@ -466,31 +424,26 @@ public final class ManagementPoliciesImpl {
     }
 
     /**
-     * Sets the managementpolicy to the specified storage account.
+     * Sets the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
+     * (Cross-Origin Resource Sharing) rules.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
-     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
-     * @param policy The Storage Account ManagementPolicies Rules. See more details in:
-     *     https://docs.microsoft.com/en-us/azure/storage/common/storage-lifecycle-managment-concepts.
+     * @param cors Sets the CORS rules. You can include up to five CorsRule elements in the request.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the Get Storage Account ManagementPolicies operation response.
+     * @return the properties of a storage account’s Queue service.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<ManagementPolicyInner> createOrUpdateAsync(
-        String resourceGroupName,
-        String accountName,
-        ManagementPolicyName managementPolicyName,
-        ManagementPolicySchema policy,
-        Context context) {
-        return createOrUpdateWithResponseAsync(resourceGroupName, accountName, managementPolicyName, policy, context)
+    public Mono<QueueServicePropertiesInner> setServicePropertiesAsync(
+        String resourceGroupName, String accountName, CorsRules cors, Context context) {
+        return setServicePropertiesWithResponseAsync(resourceGroupName, accountName, cors, context)
             .flatMap(
-                (Response<ManagementPolicyInner> res) -> {
+                (Response<QueueServicePropertiesInner> res) -> {
                     if (res.getValue() != null) {
                         return Mono.just(res.getValue());
                     } else {
@@ -500,71 +453,63 @@ public final class ManagementPoliciesImpl {
     }
 
     /**
-     * Sets the managementpolicy to the specified storage account.
+     * Sets the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
+     * (Cross-Origin Resource Sharing) rules.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
-     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
-     * @param policy The Storage Account ManagementPolicies Rules. See more details in:
-     *     https://docs.microsoft.com/en-us/azure/storage/common/storage-lifecycle-managment-concepts.
+     * @param cors Sets the CORS rules. You can include up to five CorsRule elements in the request.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the Get Storage Account ManagementPolicies operation response.
+     * @return the properties of a storage account’s Queue service.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public ManagementPolicyInner createOrUpdate(
-        String resourceGroupName,
-        String accountName,
-        ManagementPolicyName managementPolicyName,
-        ManagementPolicySchema policy) {
-        return createOrUpdateAsync(resourceGroupName, accountName, managementPolicyName, policy).block();
+    public QueueServicePropertiesInner setServiceProperties(
+        String resourceGroupName, String accountName, CorsRules cors) {
+        return setServicePropertiesAsync(resourceGroupName, accountName, cors).block();
     }
 
     /**
-     * Sets the managementpolicy to the specified storage account.
+     * Sets the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
+     * (Cross-Origin Resource Sharing) rules.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
-     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
-     * @param policy The Storage Account ManagementPolicies Rules. See more details in:
-     *     https://docs.microsoft.com/en-us/azure/storage/common/storage-lifecycle-managment-concepts.
+     * @param cors Sets the CORS rules. You can include up to five CorsRule elements in the request.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the Get Storage Account ManagementPolicies operation response.
+     * @return the properties of a storage account’s Queue service.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public ManagementPolicyInner createOrUpdate(
-        String resourceGroupName,
-        String accountName,
-        ManagementPolicyName managementPolicyName,
-        ManagementPolicySchema policy,
-        Context context) {
-        return createOrUpdateAsync(resourceGroupName, accountName, managementPolicyName, policy, context).block();
+    public QueueServicePropertiesInner setServiceProperties(
+        String resourceGroupName, String accountName, CorsRules cors, Context context) {
+        return setServicePropertiesAsync(resourceGroupName, accountName, cors, context).block();
     }
 
     /**
-     * Deletes the managementpolicy associated with the specified storage account.
+     * Gets the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
+     * (Cross-Origin Resource Sharing) rules.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
-     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the completion.
+     * @return the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
+     *     (Cross-Origin Resource Sharing) rules.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<Response<Void>> deleteWithResponseAsync(
-        String resourceGroupName, String accountName, ManagementPolicyName managementPolicyName) {
+    public Mono<Response<QueueServicePropertiesInner>> getServicePropertiesWithResponseAsync(
+        String resourceGroupName, String accountName) {
         if (this.client.getEndpoint() == null) {
             return Mono
                 .error(
@@ -584,42 +529,40 @@ public final class ManagementPoliciesImpl {
                     new IllegalArgumentException(
                         "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
-        if (managementPolicyName == null) {
-            return Mono
-                .error(new IllegalArgumentException("Parameter managementPolicyName is required and cannot be null."));
-        }
+        final String queueServiceName = "default";
         return FluxUtil
             .withContext(
                 context ->
                     service
-                        .delete(
+                        .getServiceProperties(
                             this.client.getEndpoint(),
                             resourceGroupName,
                             accountName,
                             this.client.getApiVersion(),
                             this.client.getSubscriptionId(),
-                            managementPolicyName,
+                            queueServiceName,
                             context))
             .subscriberContext(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext())));
     }
 
     /**
-     * Deletes the managementpolicy associated with the specified storage account.
+     * Gets the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
+     * (Cross-Origin Resource Sharing) rules.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
-     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the completion.
+     * @return the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
+     *     (Cross-Origin Resource Sharing) rules.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<Response<Void>> deleteWithResponseAsync(
-        String resourceGroupName, String accountName, ManagementPolicyName managementPolicyName, Context context) {
+    public Mono<Response<QueueServicePropertiesInner>> getServicePropertiesWithResponseAsync(
+        String resourceGroupName, String accountName, Context context) {
         if (this.client.getEndpoint() == null) {
             return Mono
                 .error(
@@ -639,96 +582,112 @@ public final class ManagementPoliciesImpl {
                     new IllegalArgumentException(
                         "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
-        if (managementPolicyName == null) {
-            return Mono
-                .error(new IllegalArgumentException("Parameter managementPolicyName is required and cannot be null."));
-        }
+        final String queueServiceName = "default";
         context = this.client.mergeContext(context);
         return service
-            .delete(
+            .getServiceProperties(
                 this.client.getEndpoint(),
                 resourceGroupName,
                 accountName,
                 this.client.getApiVersion(),
                 this.client.getSubscriptionId(),
-                managementPolicyName,
+                queueServiceName,
                 context);
     }
 
     /**
-     * Deletes the managementpolicy associated with the specified storage account.
+     * Gets the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
+     * (Cross-Origin Resource Sharing) rules.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
-     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the completion.
+     * @return the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
+     *     (Cross-Origin Resource Sharing) rules.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<Void> deleteAsync(
-        String resourceGroupName, String accountName, ManagementPolicyName managementPolicyName) {
-        return deleteWithResponseAsync(resourceGroupName, accountName, managementPolicyName)
-            .flatMap((Response<Void> res) -> Mono.empty());
+    public Mono<QueueServicePropertiesInner> getServicePropertiesAsync(String resourceGroupName, String accountName) {
+        return getServicePropertiesWithResponseAsync(resourceGroupName, accountName)
+            .flatMap(
+                (Response<QueueServicePropertiesInner> res) -> {
+                    if (res.getValue() != null) {
+                        return Mono.just(res.getValue());
+                    } else {
+                        return Mono.empty();
+                    }
+                });
     }
 
     /**
-     * Deletes the managementpolicy associated with the specified storage account.
+     * Gets the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
+     * (Cross-Origin Resource Sharing) rules.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
-     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the completion.
+     * @return the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
+     *     (Cross-Origin Resource Sharing) rules.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<Void> deleteAsync(
-        String resourceGroupName, String accountName, ManagementPolicyName managementPolicyName, Context context) {
-        return deleteWithResponseAsync(resourceGroupName, accountName, managementPolicyName, context)
-            .flatMap((Response<Void> res) -> Mono.empty());
+    public Mono<QueueServicePropertiesInner> getServicePropertiesAsync(
+        String resourceGroupName, String accountName, Context context) {
+        return getServicePropertiesWithResponseAsync(resourceGroupName, accountName, context)
+            .flatMap(
+                (Response<QueueServicePropertiesInner> res) -> {
+                    if (res.getValue() != null) {
+                        return Mono.just(res.getValue());
+                    } else {
+                        return Mono.empty();
+                    }
+                });
     }
 
     /**
-     * Deletes the managementpolicy associated with the specified storage account.
+     * Gets the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
+     * (Cross-Origin Resource Sharing) rules.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
-     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
+     *     (Cross-Origin Resource Sharing) rules.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public void delete(String resourceGroupName, String accountName, ManagementPolicyName managementPolicyName) {
-        deleteAsync(resourceGroupName, accountName, managementPolicyName).block();
+    public QueueServicePropertiesInner getServiceProperties(String resourceGroupName, String accountName) {
+        return getServicePropertiesAsync(resourceGroupName, accountName).block();
     }
 
     /**
-     * Deletes the managementpolicy associated with the specified storage account.
+     * Gets the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
+     * (Cross-Origin Resource Sharing) rules.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
-     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
+     *     (Cross-Origin Resource Sharing) rules.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public void delete(
-        String resourceGroupName, String accountName, ManagementPolicyName managementPolicyName, Context context) {
-        deleteAsync(resourceGroupName, accountName, managementPolicyName, context).block();
+    public QueueServicePropertiesInner getServiceProperties(
+        String resourceGroupName, String accountName, Context context) {
+        return getServicePropertiesAsync(resourceGroupName, accountName, context).block();
     }
 }

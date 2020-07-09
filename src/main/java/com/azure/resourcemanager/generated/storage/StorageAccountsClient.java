@@ -12,7 +12,7 @@ import com.azure.core.management.exception.ManagementException;
 import com.azure.core.management.polling.PollResult;
 import com.azure.core.util.Context;
 import com.azure.core.util.polling.SyncPoller;
-import com.azure.resourcemanager.generated.storage.fluent.StorageAccountsImpl;
+import com.azure.resourcemanager.generated.storage.fluent.StorageAccountsClientImpl;
 import com.azure.resourcemanager.generated.storage.fluent.inner.BlobRestoreStatusInner;
 import com.azure.resourcemanager.generated.storage.fluent.inner.CheckNameAvailabilityResultInner;
 import com.azure.resourcemanager.generated.storage.fluent.inner.ListAccountSasResponseInner;
@@ -30,10 +30,10 @@ import com.azure.resourcemanager.generated.storage.models.StorageAccountUpdatePa
 /** Initializes a new instance of the synchronous StorageManagementClient type. */
 @ServiceClient(builder = StorageManagementClientBuilder.class)
 public final class StorageAccountsClient {
-    private StorageAccountsImpl serviceClient;
+    private StorageAccountsClientImpl serviceClient;
 
     /** Initializes an instance of StorageAccounts client. */
-    StorageAccountsClient(StorageAccountsImpl serviceClient) {
+    StorageAccountsClient(StorageAccountsClientImpl serviceClient) {
         this.serviceClient = serviceClient;
     }
 

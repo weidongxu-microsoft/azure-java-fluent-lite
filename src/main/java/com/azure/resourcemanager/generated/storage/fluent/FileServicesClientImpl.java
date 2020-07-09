@@ -23,46 +23,45 @@ import com.azure.core.management.exception.ManagementException;
 import com.azure.core.util.Context;
 import com.azure.core.util.FluxUtil;
 import com.azure.core.util.logging.ClientLogger;
-import com.azure.resourcemanager.generated.storage.fluent.inner.ListQueueServicesInner;
-import com.azure.resourcemanager.generated.storage.fluent.inner.QueueServicePropertiesInner;
-import com.azure.resourcemanager.generated.storage.models.CorsRules;
+import com.azure.resourcemanager.generated.storage.fluent.inner.FileServiceItemsInner;
+import com.azure.resourcemanager.generated.storage.fluent.inner.FileServicePropertiesInner;
 import reactor.core.publisher.Mono;
 
-/** An instance of this class provides access to all the operations defined in QueueServices. */
-public final class QueueServicesImpl {
-    private final ClientLogger logger = new ClientLogger(QueueServicesImpl.class);
+/** An instance of this class provides access to all the operations defined in FileServices. */
+public final class FileServicesClientImpl {
+    private final ClientLogger logger = new ClientLogger(FileServicesClientImpl.class);
 
     /** The proxy service used to perform REST calls. */
-    private final QueueServicesService service;
+    private final FileServicesService service;
 
     /** The service client containing this operation class. */
     private final StorageManagementClientImpl client;
 
     /**
-     * Initializes an instance of QueueServicesImpl.
+     * Initializes an instance of FileServicesClientImpl.
      *
      * @param client the instance of the service client containing this operation class.
      */
-    QueueServicesImpl(StorageManagementClientImpl client) {
+    FileServicesClientImpl(StorageManagementClientImpl client) {
         this.service =
-            RestProxy.create(QueueServicesService.class, client.getHttpPipeline(), client.getSerializerAdapter());
+            RestProxy.create(FileServicesService.class, client.getHttpPipeline(), client.getSerializerAdapter());
         this.client = client;
     }
 
     /**
-     * The interface defining all the services for StorageManagementClientQueueServices to be used by the proxy service
+     * The interface defining all the services for StorageManagementClientFileServices to be used by the proxy service
      * to perform REST calls.
      */
     @Host("{$host}")
     @ServiceInterface(name = "StorageManagementCli")
-    private interface QueueServicesService {
+    private interface FileServicesService {
         @Headers({"Accept: application/json", "Content-Type: application/json"})
         @Get(
             "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage"
-                + "/storageAccounts/{accountName}/queueServices")
+                + "/storageAccounts/{accountName}/fileServices")
         @ExpectedResponses({200})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<ListQueueServicesInner>> list(
+        Mono<Response<FileServiceItemsInner>> list(
             @HostParam("$host") String endpoint,
             @PathParam("resourceGroupName") String resourceGroupName,
             @PathParam("accountName") String accountName,
@@ -73,37 +72,37 @@ public final class QueueServicesImpl {
         @Headers({"Accept: application/json", "Content-Type: application/json"})
         @Put(
             "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage"
-                + "/storageAccounts/{accountName}/queueServices/{queueServiceName}")
+                + "/storageAccounts/{accountName}/fileServices/{FileServicesName}")
         @ExpectedResponses({200})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<QueueServicePropertiesInner>> setServiceProperties(
+        Mono<Response<FileServicePropertiesInner>> setServiceProperties(
             @HostParam("$host") String endpoint,
             @PathParam("resourceGroupName") String resourceGroupName,
             @PathParam("accountName") String accountName,
             @QueryParam("api-version") String apiVersion,
             @PathParam("subscriptionId") String subscriptionId,
-            @PathParam("queueServiceName") String queueServiceName,
-            @BodyParam("application/json") QueueServicePropertiesInner parameters,
+            @PathParam("FileServicesName") String fileServicesName,
+            @BodyParam("application/json") FileServicePropertiesInner parameters,
             Context context);
 
         @Headers({"Accept: application/json", "Content-Type: application/json"})
         @Get(
             "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage"
-                + "/storageAccounts/{accountName}/queueServices/{queueServiceName}")
+                + "/storageAccounts/{accountName}/fileServices/{FileServicesName}")
         @ExpectedResponses({200})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<QueueServicePropertiesInner>> getServiceProperties(
+        Mono<Response<FileServicePropertiesInner>> getServiceProperties(
             @HostParam("$host") String endpoint,
             @PathParam("resourceGroupName") String resourceGroupName,
             @PathParam("accountName") String accountName,
             @QueryParam("api-version") String apiVersion,
             @PathParam("subscriptionId") String subscriptionId,
-            @PathParam("queueServiceName") String queueServiceName,
+            @PathParam("FileServicesName") String fileServicesName,
             Context context);
     }
 
     /**
-     * List all queue services for the storage account.
+     * List all file services in storage accounts.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
@@ -115,7 +114,7 @@ public final class QueueServicesImpl {
      * @return the response.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<Response<ListQueueServicesInner>> listWithResponseAsync(String resourceGroupName, String accountName) {
+    public Mono<Response<FileServiceItemsInner>> listWithResponseAsync(String resourceGroupName, String accountName) {
         if (this.client.getEndpoint() == null) {
             return Mono
                 .error(
@@ -150,7 +149,7 @@ public final class QueueServicesImpl {
     }
 
     /**
-     * List all queue services for the storage account.
+     * List all file services in storage accounts.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
@@ -163,7 +162,7 @@ public final class QueueServicesImpl {
      * @return the response.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<Response<ListQueueServicesInner>> listWithResponseAsync(
+    public Mono<Response<FileServiceItemsInner>> listWithResponseAsync(
         String resourceGroupName, String accountName, Context context) {
         if (this.client.getEndpoint() == null) {
             return Mono
@@ -196,7 +195,7 @@ public final class QueueServicesImpl {
     }
 
     /**
-     * List all queue services for the storage account.
+     * List all file services in storage accounts.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
@@ -208,10 +207,10 @@ public final class QueueServicesImpl {
      * @return the response.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<ListQueueServicesInner> listAsync(String resourceGroupName, String accountName) {
+    public Mono<FileServiceItemsInner> listAsync(String resourceGroupName, String accountName) {
         return listWithResponseAsync(resourceGroupName, accountName)
             .flatMap(
-                (Response<ListQueueServicesInner> res) -> {
+                (Response<FileServiceItemsInner> res) -> {
                     if (res.getValue() != null) {
                         return Mono.just(res.getValue());
                     } else {
@@ -221,7 +220,7 @@ public final class QueueServicesImpl {
     }
 
     /**
-     * List all queue services for the storage account.
+     * List all file services in storage accounts.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
@@ -234,10 +233,10 @@ public final class QueueServicesImpl {
      * @return the response.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<ListQueueServicesInner> listAsync(String resourceGroupName, String accountName, Context context) {
+    public Mono<FileServiceItemsInner> listAsync(String resourceGroupName, String accountName, Context context) {
         return listWithResponseAsync(resourceGroupName, accountName, context)
             .flatMap(
-                (Response<ListQueueServicesInner> res) -> {
+                (Response<FileServiceItemsInner> res) -> {
                     if (res.getValue() != null) {
                         return Mono.just(res.getValue());
                     } else {
@@ -247,7 +246,7 @@ public final class QueueServicesImpl {
     }
 
     /**
-     * List all queue services for the storage account.
+     * List all file services in storage accounts.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
@@ -259,12 +258,12 @@ public final class QueueServicesImpl {
      * @return the response.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public ListQueueServicesInner list(String resourceGroupName, String accountName) {
+    public FileServiceItemsInner list(String resourceGroupName, String accountName) {
         return listAsync(resourceGroupName, accountName).block();
     }
 
     /**
-     * List all queue services for the storage account.
+     * List all file services in storage accounts.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
@@ -277,27 +276,26 @@ public final class QueueServicesImpl {
      * @return the response.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public ListQueueServicesInner list(String resourceGroupName, String accountName, Context context) {
+    public FileServiceItemsInner list(String resourceGroupName, String accountName, Context context) {
         return listAsync(resourceGroupName, accountName, context).block();
     }
 
     /**
-     * Sets the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
-     * (Cross-Origin Resource Sharing) rules.
+     * Sets the properties of file services in storage accounts, including CORS (Cross-Origin Resource Sharing) rules.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
-     * @param cors Sets the CORS rules. You can include up to five CorsRule elements in the request.
+     * @param parameters The properties of File services in storage account.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the properties of a storage account’s Queue service.
+     * @return the properties of File services in storage account.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<Response<QueueServicePropertiesInner>> setServicePropertiesWithResponseAsync(
-        String resourceGroupName, String accountName, CorsRules cors) {
+    public Mono<Response<FileServicePropertiesInner>> setServicePropertiesWithResponseAsync(
+        String resourceGroupName, String accountName, FileServicePropertiesInner parameters) {
         if (this.client.getEndpoint() == null) {
             return Mono
                 .error(
@@ -317,12 +315,12 @@ public final class QueueServicesImpl {
                     new IllegalArgumentException(
                         "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
-        if (cors != null) {
-            cors.validate();
+        if (parameters == null) {
+            return Mono.error(new IllegalArgumentException("Parameter parameters is required and cannot be null."));
+        } else {
+            parameters.validate();
         }
-        final String queueServiceName = "default";
-        QueueServicePropertiesInner parameters = new QueueServicePropertiesInner();
-        parameters.withCors(cors);
+        final String fileServicesName = "default";
         return FluxUtil
             .withContext(
                 context ->
@@ -333,30 +331,29 @@ public final class QueueServicesImpl {
                             accountName,
                             this.client.getApiVersion(),
                             this.client.getSubscriptionId(),
-                            queueServiceName,
+                            fileServicesName,
                             parameters,
                             context))
             .subscriberContext(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext())));
     }
 
     /**
-     * Sets the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
-     * (Cross-Origin Resource Sharing) rules.
+     * Sets the properties of file services in storage accounts, including CORS (Cross-Origin Resource Sharing) rules.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
-     * @param cors Sets the CORS rules. You can include up to five CorsRule elements in the request.
+     * @param parameters The properties of File services in storage account.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the properties of a storage account’s Queue service.
+     * @return the properties of File services in storage account.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<Response<QueueServicePropertiesInner>> setServicePropertiesWithResponseAsync(
-        String resourceGroupName, String accountName, CorsRules cors, Context context) {
+    public Mono<Response<FileServicePropertiesInner>> setServicePropertiesWithResponseAsync(
+        String resourceGroupName, String accountName, FileServicePropertiesInner parameters, Context context) {
         if (this.client.getEndpoint() == null) {
             return Mono
                 .error(
@@ -376,12 +373,12 @@ public final class QueueServicesImpl {
                     new IllegalArgumentException(
                         "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
-        if (cors != null) {
-            cors.validate();
+        if (parameters == null) {
+            return Mono.error(new IllegalArgumentException("Parameter parameters is required and cannot be null."));
+        } else {
+            parameters.validate();
         }
-        final String queueServiceName = "default";
-        QueueServicePropertiesInner parameters = new QueueServicePropertiesInner();
-        parameters.withCors(cors);
+        final String fileServicesName = "default";
         context = this.client.mergeContext(context);
         return service
             .setServiceProperties(
@@ -390,31 +387,30 @@ public final class QueueServicesImpl {
                 accountName,
                 this.client.getApiVersion(),
                 this.client.getSubscriptionId(),
-                queueServiceName,
+                fileServicesName,
                 parameters,
                 context);
     }
 
     /**
-     * Sets the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
-     * (Cross-Origin Resource Sharing) rules.
+     * Sets the properties of file services in storage accounts, including CORS (Cross-Origin Resource Sharing) rules.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
-     * @param cors Sets the CORS rules. You can include up to five CorsRule elements in the request.
+     * @param parameters The properties of File services in storage account.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the properties of a storage account’s Queue service.
+     * @return the properties of File services in storage account.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<QueueServicePropertiesInner> setServicePropertiesAsync(
-        String resourceGroupName, String accountName, CorsRules cors) {
-        return setServicePropertiesWithResponseAsync(resourceGroupName, accountName, cors)
+    public Mono<FileServicePropertiesInner> setServicePropertiesAsync(
+        String resourceGroupName, String accountName, FileServicePropertiesInner parameters) {
+        return setServicePropertiesWithResponseAsync(resourceGroupName, accountName, parameters)
             .flatMap(
-                (Response<QueueServicePropertiesInner> res) -> {
+                (Response<FileServicePropertiesInner> res) -> {
                     if (res.getValue() != null) {
                         return Mono.just(res.getValue());
                     } else {
@@ -424,26 +420,25 @@ public final class QueueServicesImpl {
     }
 
     /**
-     * Sets the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
-     * (Cross-Origin Resource Sharing) rules.
+     * Sets the properties of file services in storage accounts, including CORS (Cross-Origin Resource Sharing) rules.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
-     * @param cors Sets the CORS rules. You can include up to five CorsRule elements in the request.
+     * @param parameters The properties of File services in storage account.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the properties of a storage account’s Queue service.
+     * @return the properties of File services in storage account.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<QueueServicePropertiesInner> setServicePropertiesAsync(
-        String resourceGroupName, String accountName, CorsRules cors, Context context) {
-        return setServicePropertiesWithResponseAsync(resourceGroupName, accountName, cors, context)
+    public Mono<FileServicePropertiesInner> setServicePropertiesAsync(
+        String resourceGroupName, String accountName, FileServicePropertiesInner parameters, Context context) {
+        return setServicePropertiesWithResponseAsync(resourceGroupName, accountName, parameters, context)
             .flatMap(
-                (Response<QueueServicePropertiesInner> res) -> {
+                (Response<FileServicePropertiesInner> res) -> {
                     if (res.getValue() != null) {
                         return Mono.just(res.getValue());
                     } else {
@@ -453,49 +448,46 @@ public final class QueueServicesImpl {
     }
 
     /**
-     * Sets the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
-     * (Cross-Origin Resource Sharing) rules.
+     * Sets the properties of file services in storage accounts, including CORS (Cross-Origin Resource Sharing) rules.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
-     * @param cors Sets the CORS rules. You can include up to five CorsRule elements in the request.
+     * @param parameters The properties of File services in storage account.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the properties of a storage account’s Queue service.
+     * @return the properties of File services in storage account.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public QueueServicePropertiesInner setServiceProperties(
-        String resourceGroupName, String accountName, CorsRules cors) {
-        return setServicePropertiesAsync(resourceGroupName, accountName, cors).block();
+    public FileServicePropertiesInner setServiceProperties(
+        String resourceGroupName, String accountName, FileServicePropertiesInner parameters) {
+        return setServicePropertiesAsync(resourceGroupName, accountName, parameters).block();
     }
 
     /**
-     * Sets the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
-     * (Cross-Origin Resource Sharing) rules.
+     * Sets the properties of file services in storage accounts, including CORS (Cross-Origin Resource Sharing) rules.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
-     * @param cors Sets the CORS rules. You can include up to five CorsRule elements in the request.
+     * @param parameters The properties of File services in storage account.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the properties of a storage account’s Queue service.
+     * @return the properties of File services in storage account.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public QueueServicePropertiesInner setServiceProperties(
-        String resourceGroupName, String accountName, CorsRules cors, Context context) {
-        return setServicePropertiesAsync(resourceGroupName, accountName, cors, context).block();
+    public FileServicePropertiesInner setServiceProperties(
+        String resourceGroupName, String accountName, FileServicePropertiesInner parameters, Context context) {
+        return setServicePropertiesAsync(resourceGroupName, accountName, parameters, context).block();
     }
 
     /**
-     * Gets the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
-     * (Cross-Origin Resource Sharing) rules.
+     * Gets the properties of file services in storage accounts, including CORS (Cross-Origin Resource Sharing) rules.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
@@ -504,11 +496,11 @@ public final class QueueServicesImpl {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
-     *     (Cross-Origin Resource Sharing) rules.
+     * @return the properties of file services in storage accounts, including CORS (Cross-Origin Resource Sharing)
+     *     rules.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<Response<QueueServicePropertiesInner>> getServicePropertiesWithResponseAsync(
+    public Mono<Response<FileServicePropertiesInner>> getServicePropertiesWithResponseAsync(
         String resourceGroupName, String accountName) {
         if (this.client.getEndpoint() == null) {
             return Mono
@@ -529,7 +521,7 @@ public final class QueueServicesImpl {
                     new IllegalArgumentException(
                         "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
-        final String queueServiceName = "default";
+        final String fileServicesName = "default";
         return FluxUtil
             .withContext(
                 context ->
@@ -540,14 +532,13 @@ public final class QueueServicesImpl {
                             accountName,
                             this.client.getApiVersion(),
                             this.client.getSubscriptionId(),
-                            queueServiceName,
+                            fileServicesName,
                             context))
             .subscriberContext(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext())));
     }
 
     /**
-     * Gets the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
-     * (Cross-Origin Resource Sharing) rules.
+     * Gets the properties of file services in storage accounts, including CORS (Cross-Origin Resource Sharing) rules.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
@@ -557,11 +548,11 @@ public final class QueueServicesImpl {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
-     *     (Cross-Origin Resource Sharing) rules.
+     * @return the properties of file services in storage accounts, including CORS (Cross-Origin Resource Sharing)
+     *     rules.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<Response<QueueServicePropertiesInner>> getServicePropertiesWithResponseAsync(
+    public Mono<Response<FileServicePropertiesInner>> getServicePropertiesWithResponseAsync(
         String resourceGroupName, String accountName, Context context) {
         if (this.client.getEndpoint() == null) {
             return Mono
@@ -582,7 +573,7 @@ public final class QueueServicesImpl {
                     new IllegalArgumentException(
                         "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
-        final String queueServiceName = "default";
+        final String fileServicesName = "default";
         context = this.client.mergeContext(context);
         return service
             .getServiceProperties(
@@ -591,13 +582,12 @@ public final class QueueServicesImpl {
                 accountName,
                 this.client.getApiVersion(),
                 this.client.getSubscriptionId(),
-                queueServiceName,
+                fileServicesName,
                 context);
     }
 
     /**
-     * Gets the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
-     * (Cross-Origin Resource Sharing) rules.
+     * Gets the properties of file services in storage accounts, including CORS (Cross-Origin Resource Sharing) rules.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
@@ -606,14 +596,14 @@ public final class QueueServicesImpl {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
-     *     (Cross-Origin Resource Sharing) rules.
+     * @return the properties of file services in storage accounts, including CORS (Cross-Origin Resource Sharing)
+     *     rules.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<QueueServicePropertiesInner> getServicePropertiesAsync(String resourceGroupName, String accountName) {
+    public Mono<FileServicePropertiesInner> getServicePropertiesAsync(String resourceGroupName, String accountName) {
         return getServicePropertiesWithResponseAsync(resourceGroupName, accountName)
             .flatMap(
-                (Response<QueueServicePropertiesInner> res) -> {
+                (Response<FileServicePropertiesInner> res) -> {
                     if (res.getValue() != null) {
                         return Mono.just(res.getValue());
                     } else {
@@ -623,8 +613,7 @@ public final class QueueServicesImpl {
     }
 
     /**
-     * Gets the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
-     * (Cross-Origin Resource Sharing) rules.
+     * Gets the properties of file services in storage accounts, including CORS (Cross-Origin Resource Sharing) rules.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
@@ -634,15 +623,15 @@ public final class QueueServicesImpl {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
-     *     (Cross-Origin Resource Sharing) rules.
+     * @return the properties of file services in storage accounts, including CORS (Cross-Origin Resource Sharing)
+     *     rules.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<QueueServicePropertiesInner> getServicePropertiesAsync(
+    public Mono<FileServicePropertiesInner> getServicePropertiesAsync(
         String resourceGroupName, String accountName, Context context) {
         return getServicePropertiesWithResponseAsync(resourceGroupName, accountName, context)
             .flatMap(
-                (Response<QueueServicePropertiesInner> res) -> {
+                (Response<FileServicePropertiesInner> res) -> {
                     if (res.getValue() != null) {
                         return Mono.just(res.getValue());
                     } else {
@@ -652,8 +641,7 @@ public final class QueueServicesImpl {
     }
 
     /**
-     * Gets the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
-     * (Cross-Origin Resource Sharing) rules.
+     * Gets the properties of file services in storage accounts, including CORS (Cross-Origin Resource Sharing) rules.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
@@ -662,17 +650,16 @@ public final class QueueServicesImpl {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
-     *     (Cross-Origin Resource Sharing) rules.
+     * @return the properties of file services in storage accounts, including CORS (Cross-Origin Resource Sharing)
+     *     rules.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public QueueServicePropertiesInner getServiceProperties(String resourceGroupName, String accountName) {
+    public FileServicePropertiesInner getServiceProperties(String resourceGroupName, String accountName) {
         return getServicePropertiesAsync(resourceGroupName, accountName).block();
     }
 
     /**
-     * Gets the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
-     * (Cross-Origin Resource Sharing) rules.
+     * Gets the properties of file services in storage accounts, including CORS (Cross-Origin Resource Sharing) rules.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
@@ -682,11 +669,11 @@ public final class QueueServicesImpl {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the properties of a storage account’s Queue service, including properties for Storage Analytics and CORS
-     *     (Cross-Origin Resource Sharing) rules.
+     * @return the properties of file services in storage accounts, including CORS (Cross-Origin Resource Sharing)
+     *     rules.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public QueueServicePropertiesInner getServiceProperties(
+    public FileServicePropertiesInner getServiceProperties(
         String resourceGroupName, String accountName, Context context) {
         return getServicePropertiesAsync(resourceGroupName, accountName, context).block();
     }

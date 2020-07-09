@@ -25,8 +25,8 @@ import com.azure.resourcemanager.generated.storage.fluent.inner.PrivateLinkResou
 import reactor.core.publisher.Mono;
 
 /** An instance of this class provides access to all the operations defined in PrivateLinkResources. */
-public final class PrivateLinkResourcesImpl {
-    private final ClientLogger logger = new ClientLogger(PrivateLinkResourcesImpl.class);
+public final class PrivateLinkResourcesClientImpl {
+    private final ClientLogger logger = new ClientLogger(PrivateLinkResourcesClientImpl.class);
 
     /** The proxy service used to perform REST calls. */
     private final PrivateLinkResourcesService service;
@@ -35,11 +35,11 @@ public final class PrivateLinkResourcesImpl {
     private final StorageManagementClientImpl client;
 
     /**
-     * Initializes an instance of PrivateLinkResourcesImpl.
+     * Initializes an instance of PrivateLinkResourcesClientImpl.
      *
      * @param client the instance of the service client containing this operation class.
      */
-    PrivateLinkResourcesImpl(StorageManagementClientImpl client) {
+    PrivateLinkResourcesClientImpl(StorageManagementClientImpl client) {
         this.service =
             RestProxy
                 .create(PrivateLinkResourcesService.class, client.getHttpPipeline(), client.getSerializerAdapter());

@@ -32,8 +32,8 @@ import com.azure.resourcemanager.generated.storage.fluent.inner.BlobServicePrope
 import reactor.core.publisher.Mono;
 
 /** An instance of this class provides access to all the operations defined in BlobServices. */
-public final class BlobServicesImpl {
-    private final ClientLogger logger = new ClientLogger(BlobServicesImpl.class);
+public final class BlobServicesClientImpl {
+    private final ClientLogger logger = new ClientLogger(BlobServicesClientImpl.class);
 
     /** The proxy service used to perform REST calls. */
     private final BlobServicesService service;
@@ -42,11 +42,11 @@ public final class BlobServicesImpl {
     private final StorageManagementClientImpl client;
 
     /**
-     * Initializes an instance of BlobServicesImpl.
+     * Initializes an instance of BlobServicesClientImpl.
      *
      * @param client the instance of the service client containing this operation class.
      */
-    BlobServicesImpl(StorageManagementClientImpl client) {
+    BlobServicesClientImpl(StorageManagementClientImpl client) {
         this.service =
             RestProxy.create(BlobServicesService.class, client.getHttpPipeline(), client.getSerializerAdapter());
         this.client = client;

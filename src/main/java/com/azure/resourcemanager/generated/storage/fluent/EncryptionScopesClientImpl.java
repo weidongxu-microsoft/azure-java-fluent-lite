@@ -33,8 +33,8 @@ import com.azure.resourcemanager.generated.storage.fluent.inner.EncryptionScopeL
 import reactor.core.publisher.Mono;
 
 /** An instance of this class provides access to all the operations defined in EncryptionScopes. */
-public final class EncryptionScopesImpl {
-    private final ClientLogger logger = new ClientLogger(EncryptionScopesImpl.class);
+public final class EncryptionScopesClientImpl {
+    private final ClientLogger logger = new ClientLogger(EncryptionScopesClientImpl.class);
 
     /** The proxy service used to perform REST calls. */
     private final EncryptionScopesService service;
@@ -43,11 +43,11 @@ public final class EncryptionScopesImpl {
     private final StorageManagementClientImpl client;
 
     /**
-     * Initializes an instance of EncryptionScopesImpl.
+     * Initializes an instance of EncryptionScopesClientImpl.
      *
      * @param client the instance of the service client containing this operation class.
      */
-    EncryptionScopesImpl(StorageManagementClientImpl client) {
+    EncryptionScopesClientImpl(StorageManagementClientImpl client) {
         this.service =
             RestProxy.create(EncryptionScopesService.class, client.getHttpPipeline(), client.getSerializerAdapter());
         this.client = client;

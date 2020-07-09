@@ -61,207 +61,207 @@ public final class StorageManagementClientImpl extends AzureServiceClient {
         return this.httpPipeline;
     }
 
-    /** The OperationsImpl object to access its operations. */
-    private final OperationsImpl operations;
+    /** The OperationsClientImpl object to access its operations. */
+    private final OperationsClientImpl operations;
 
     /**
-     * Gets the OperationsImpl object to access its operations.
+     * Gets the OperationsClientImpl object to access its operations.
      *
-     * @return the OperationsImpl object.
+     * @return the OperationsClientImpl object.
      */
-    public OperationsImpl getOperations() {
+    public OperationsClientImpl getOperations() {
         return this.operations;
     }
 
-    /** The SkusImpl object to access its operations. */
-    private final SkusImpl skus;
+    /** The SkusClientImpl object to access its operations. */
+    private final SkusClientImpl skus;
 
     /**
-     * Gets the SkusImpl object to access its operations.
+     * Gets the SkusClientImpl object to access its operations.
      *
-     * @return the SkusImpl object.
+     * @return the SkusClientImpl object.
      */
-    public SkusImpl getSkus() {
+    public SkusClientImpl getSkus() {
         return this.skus;
     }
 
-    /** The StorageAccountsImpl object to access its operations. */
-    private final StorageAccountsImpl storageAccounts;
+    /** The StorageAccountsClientImpl object to access its operations. */
+    private final StorageAccountsClientImpl storageAccounts;
 
     /**
-     * Gets the StorageAccountsImpl object to access its operations.
+     * Gets the StorageAccountsClientImpl object to access its operations.
      *
-     * @return the StorageAccountsImpl object.
+     * @return the StorageAccountsClientImpl object.
      */
-    public StorageAccountsImpl getStorageAccounts() {
+    public StorageAccountsClientImpl getStorageAccounts() {
         return this.storageAccounts;
     }
 
-    /** The UsagesImpl object to access its operations. */
-    private final UsagesImpl usages;
+    /** The UsagesClientImpl object to access its operations. */
+    private final UsagesClientImpl usages;
 
     /**
-     * Gets the UsagesImpl object to access its operations.
+     * Gets the UsagesClientImpl object to access its operations.
      *
-     * @return the UsagesImpl object.
+     * @return the UsagesClientImpl object.
      */
-    public UsagesImpl getUsages() {
+    public UsagesClientImpl getUsages() {
         return this.usages;
     }
 
-    /** The ManagementPoliciesImpl object to access its operations. */
-    private final ManagementPoliciesImpl managementPolicies;
+    /** The ManagementPoliciesClientImpl object to access its operations. */
+    private final ManagementPoliciesClientImpl managementPolicies;
 
     /**
-     * Gets the ManagementPoliciesImpl object to access its operations.
+     * Gets the ManagementPoliciesClientImpl object to access its operations.
      *
-     * @return the ManagementPoliciesImpl object.
+     * @return the ManagementPoliciesClientImpl object.
      */
-    public ManagementPoliciesImpl getManagementPolicies() {
+    public ManagementPoliciesClientImpl getManagementPolicies() {
         return this.managementPolicies;
     }
 
-    /** The PrivateEndpointConnectionsImpl object to access its operations. */
-    private final PrivateEndpointConnectionsImpl privateEndpointConnections;
+    /** The PrivateEndpointConnectionsClientImpl object to access its operations. */
+    private final PrivateEndpointConnectionsClientImpl privateEndpointConnections;
 
     /**
-     * Gets the PrivateEndpointConnectionsImpl object to access its operations.
+     * Gets the PrivateEndpointConnectionsClientImpl object to access its operations.
      *
-     * @return the PrivateEndpointConnectionsImpl object.
+     * @return the PrivateEndpointConnectionsClientImpl object.
      */
-    public PrivateEndpointConnectionsImpl getPrivateEndpointConnections() {
+    public PrivateEndpointConnectionsClientImpl getPrivateEndpointConnections() {
         return this.privateEndpointConnections;
     }
 
-    /** The PrivateLinkResourcesImpl object to access its operations. */
-    private final PrivateLinkResourcesImpl privateLinkResources;
+    /** The PrivateLinkResourcesClientImpl object to access its operations. */
+    private final PrivateLinkResourcesClientImpl privateLinkResources;
 
     /**
-     * Gets the PrivateLinkResourcesImpl object to access its operations.
+     * Gets the PrivateLinkResourcesClientImpl object to access its operations.
      *
-     * @return the PrivateLinkResourcesImpl object.
+     * @return the PrivateLinkResourcesClientImpl object.
      */
-    public PrivateLinkResourcesImpl getPrivateLinkResources() {
+    public PrivateLinkResourcesClientImpl getPrivateLinkResources() {
         return this.privateLinkResources;
     }
 
-    /** The ObjectReplicationPoliciesOperationsImpl object to access its operations. */
-    private final ObjectReplicationPoliciesOperationsImpl objectReplicationPoliciesOperations;
+    /** The ObjectReplicationPoliciesOperationsClientImpl object to access its operations. */
+    private final ObjectReplicationPoliciesOperationsClientImpl objectReplicationPoliciesOperations;
 
     /**
-     * Gets the ObjectReplicationPoliciesOperationsImpl object to access its operations.
+     * Gets the ObjectReplicationPoliciesOperationsClientImpl object to access its operations.
      *
-     * @return the ObjectReplicationPoliciesOperationsImpl object.
+     * @return the ObjectReplicationPoliciesOperationsClientImpl object.
      */
-    public ObjectReplicationPoliciesOperationsImpl getObjectReplicationPoliciesOperations() {
+    public ObjectReplicationPoliciesOperationsClientImpl getObjectReplicationPoliciesOperations() {
         return this.objectReplicationPoliciesOperations;
     }
 
-    /** The EncryptionScopesImpl object to access its operations. */
-    private final EncryptionScopesImpl encryptionScopes;
+    /** The EncryptionScopesClientImpl object to access its operations. */
+    private final EncryptionScopesClientImpl encryptionScopes;
 
     /**
-     * Gets the EncryptionScopesImpl object to access its operations.
+     * Gets the EncryptionScopesClientImpl object to access its operations.
      *
-     * @return the EncryptionScopesImpl object.
+     * @return the EncryptionScopesClientImpl object.
      */
-    public EncryptionScopesImpl getEncryptionScopes() {
+    public EncryptionScopesClientImpl getEncryptionScopes() {
         return this.encryptionScopes;
     }
 
-    /** The BlobServicesImpl object to access its operations. */
-    private final BlobServicesImpl blobServices;
+    /** The BlobServicesClientImpl object to access its operations. */
+    private final BlobServicesClientImpl blobServices;
 
     /**
-     * Gets the BlobServicesImpl object to access its operations.
+     * Gets the BlobServicesClientImpl object to access its operations.
      *
-     * @return the BlobServicesImpl object.
+     * @return the BlobServicesClientImpl object.
      */
-    public BlobServicesImpl getBlobServices() {
+    public BlobServicesClientImpl getBlobServices() {
         return this.blobServices;
     }
 
-    /** The BlobContainersImpl object to access its operations. */
-    private final BlobContainersImpl blobContainers;
+    /** The BlobContainersClientImpl object to access its operations. */
+    private final BlobContainersClientImpl blobContainers;
 
     /**
-     * Gets the BlobContainersImpl object to access its operations.
+     * Gets the BlobContainersClientImpl object to access its operations.
      *
-     * @return the BlobContainersImpl object.
+     * @return the BlobContainersClientImpl object.
      */
-    public BlobContainersImpl getBlobContainers() {
+    public BlobContainersClientImpl getBlobContainers() {
         return this.blobContainers;
     }
 
-    /** The FileServicesImpl object to access its operations. */
-    private final FileServicesImpl fileServices;
+    /** The FileServicesClientImpl object to access its operations. */
+    private final FileServicesClientImpl fileServices;
 
     /**
-     * Gets the FileServicesImpl object to access its operations.
+     * Gets the FileServicesClientImpl object to access its operations.
      *
-     * @return the FileServicesImpl object.
+     * @return the FileServicesClientImpl object.
      */
-    public FileServicesImpl getFileServices() {
+    public FileServicesClientImpl getFileServices() {
         return this.fileServices;
     }
 
-    /** The FileSharesImpl object to access its operations. */
-    private final FileSharesImpl fileShares;
+    /** The FileSharesClientImpl object to access its operations. */
+    private final FileSharesClientImpl fileShares;
 
     /**
-     * Gets the FileSharesImpl object to access its operations.
+     * Gets the FileSharesClientImpl object to access its operations.
      *
-     * @return the FileSharesImpl object.
+     * @return the FileSharesClientImpl object.
      */
-    public FileSharesImpl getFileShares() {
+    public FileSharesClientImpl getFileShares() {
         return this.fileShares;
     }
 
-    /** The QueueServicesImpl object to access its operations. */
-    private final QueueServicesImpl queueServices;
+    /** The QueueServicesClientImpl object to access its operations. */
+    private final QueueServicesClientImpl queueServices;
 
     /**
-     * Gets the QueueServicesImpl object to access its operations.
+     * Gets the QueueServicesClientImpl object to access its operations.
      *
-     * @return the QueueServicesImpl object.
+     * @return the QueueServicesClientImpl object.
      */
-    public QueueServicesImpl getQueueServices() {
+    public QueueServicesClientImpl getQueueServices() {
         return this.queueServices;
     }
 
-    /** The QueuesImpl object to access its operations. */
-    private final QueuesImpl queues;
+    /** The QueuesClientImpl object to access its operations. */
+    private final QueuesClientImpl queues;
 
     /**
-     * Gets the QueuesImpl object to access its operations.
+     * Gets the QueuesClientImpl object to access its operations.
      *
-     * @return the QueuesImpl object.
+     * @return the QueuesClientImpl object.
      */
-    public QueuesImpl getQueues() {
+    public QueuesClientImpl getQueues() {
         return this.queues;
     }
 
-    /** The TableServicesImpl object to access its operations. */
-    private final TableServicesImpl tableServices;
+    /** The TableServicesClientImpl object to access its operations. */
+    private final TableServicesClientImpl tableServices;
 
     /**
-     * Gets the TableServicesImpl object to access its operations.
+     * Gets the TableServicesClientImpl object to access its operations.
      *
-     * @return the TableServicesImpl object.
+     * @return the TableServicesClientImpl object.
      */
-    public TableServicesImpl getTableServices() {
+    public TableServicesClientImpl getTableServices() {
         return this.tableServices;
     }
 
-    /** The TablesImpl object to access its operations. */
-    private final TablesImpl tables;
+    /** The TablesClientImpl object to access its operations. */
+    private final TablesClientImpl tables;
 
     /**
-     * Gets the TablesImpl object to access its operations.
+     * Gets the TablesClientImpl object to access its operations.
      *
-     * @return the TablesImpl object.
+     * @return the TablesClientImpl object.
      */
-    public TablesImpl getTables() {
+    public TablesClientImpl getTables() {
         return this.tables;
     }
 
@@ -278,22 +278,22 @@ public final class StorageManagementClientImpl extends AzureServiceClient {
         this.subscriptionId = subscriptionId;
         this.endpoint = endpoint;
         this.apiVersion = "2019-06-01";
-        this.operations = new OperationsImpl(this);
-        this.skus = new SkusImpl(this);
-        this.storageAccounts = new StorageAccountsImpl(this);
-        this.usages = new UsagesImpl(this);
-        this.managementPolicies = new ManagementPoliciesImpl(this);
-        this.privateEndpointConnections = new PrivateEndpointConnectionsImpl(this);
-        this.privateLinkResources = new PrivateLinkResourcesImpl(this);
-        this.objectReplicationPoliciesOperations = new ObjectReplicationPoliciesOperationsImpl(this);
-        this.encryptionScopes = new EncryptionScopesImpl(this);
-        this.blobServices = new BlobServicesImpl(this);
-        this.blobContainers = new BlobContainersImpl(this);
-        this.fileServices = new FileServicesImpl(this);
-        this.fileShares = new FileSharesImpl(this);
-        this.queueServices = new QueueServicesImpl(this);
-        this.queues = new QueuesImpl(this);
-        this.tableServices = new TableServicesImpl(this);
-        this.tables = new TablesImpl(this);
+        this.operations = new OperationsClientImpl(this);
+        this.skus = new SkusClientImpl(this);
+        this.storageAccounts = new StorageAccountsClientImpl(this);
+        this.usages = new UsagesClientImpl(this);
+        this.managementPolicies = new ManagementPoliciesClientImpl(this);
+        this.privateEndpointConnections = new PrivateEndpointConnectionsClientImpl(this);
+        this.privateLinkResources = new PrivateLinkResourcesClientImpl(this);
+        this.objectReplicationPoliciesOperations = new ObjectReplicationPoliciesOperationsClientImpl(this);
+        this.encryptionScopes = new EncryptionScopesClientImpl(this);
+        this.blobServices = new BlobServicesClientImpl(this);
+        this.blobContainers = new BlobContainersClientImpl(this);
+        this.fileServices = new FileServicesClientImpl(this);
+        this.fileShares = new FileSharesClientImpl(this);
+        this.queueServices = new QueueServicesClientImpl(this);
+        this.queues = new QueuesClientImpl(this);
+        this.tableServices = new TableServicesClientImpl(this);
+        this.tables = new TablesClientImpl(this);
     }
 }

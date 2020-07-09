@@ -10,7 +10,7 @@ import com.azure.core.annotation.ServiceMethod;
 import com.azure.core.http.rest.PagedIterable;
 import com.azure.core.management.exception.ManagementException;
 import com.azure.core.util.Context;
-import com.azure.resourcemanager.generated.storage.fluent.QueuesImpl;
+import com.azure.resourcemanager.generated.storage.fluent.QueuesClientImpl;
 import com.azure.resourcemanager.generated.storage.fluent.inner.ListQueueInner;
 import com.azure.resourcemanager.generated.storage.fluent.inner.StorageQueueInner;
 import java.util.Map;
@@ -18,10 +18,10 @@ import java.util.Map;
 /** Initializes a new instance of the synchronous StorageManagementClient type. */
 @ServiceClient(builder = StorageManagementClientBuilder.class)
 public final class QueueClient {
-    private QueuesImpl serviceClient;
+    private QueuesClientImpl serviceClient;
 
     /** Initializes an instance of Queues client. */
-    QueueClient(QueuesImpl serviceClient) {
+    QueueClient(QueuesClientImpl serviceClient) {
         this.serviceClient = serviceClient;
     }
 

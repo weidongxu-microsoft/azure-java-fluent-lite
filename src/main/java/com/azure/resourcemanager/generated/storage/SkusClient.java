@@ -10,16 +10,16 @@ import com.azure.core.annotation.ServiceMethod;
 import com.azure.core.http.rest.PagedIterable;
 import com.azure.core.management.exception.ManagementException;
 import com.azure.core.util.Context;
-import com.azure.resourcemanager.generated.storage.fluent.SkusImpl;
+import com.azure.resourcemanager.generated.storage.fluent.SkusClientImpl;
 import com.azure.resourcemanager.generated.storage.fluent.inner.SkuInformationInner;
 
 /** Initializes a new instance of the synchronous StorageManagementClient type. */
 @ServiceClient(builder = StorageManagementClientBuilder.class)
 public final class SkusClient {
-    private SkusImpl serviceClient;
+    private SkusClientImpl serviceClient;
 
     /** Initializes an instance of Skus client. */
-    SkusClient(SkusImpl serviceClient) {
+    SkusClient(SkusClientImpl serviceClient) {
         this.serviceClient = serviceClient;
     }
 

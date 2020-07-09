@@ -10,16 +10,16 @@ import com.azure.core.annotation.ServiceMethod;
 import com.azure.core.http.rest.PagedIterable;
 import com.azure.core.management.exception.ManagementException;
 import com.azure.core.util.Context;
-import com.azure.resourcemanager.generated.storage.fluent.BlobServicesImpl;
+import com.azure.resourcemanager.generated.storage.fluent.BlobServicesClientImpl;
 import com.azure.resourcemanager.generated.storage.fluent.inner.BlobServicePropertiesInner;
 
 /** Initializes a new instance of the synchronous StorageManagementClient type. */
 @ServiceClient(builder = StorageManagementClientBuilder.class)
 public final class BlobServicesClient {
-    private BlobServicesImpl serviceClient;
+    private BlobServicesClientImpl serviceClient;
 
     /** Initializes an instance of BlobServices client. */
-    BlobServicesClient(BlobServicesImpl serviceClient) {
+    BlobServicesClient(BlobServicesClientImpl serviceClient) {
         this.serviceClient = serviceClient;
     }
 

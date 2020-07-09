@@ -39,8 +39,8 @@ import com.azure.resourcemanager.generated.storage.models.ListSharesExpand;
 import reactor.core.publisher.Mono;
 
 /** An instance of this class provides access to all the operations defined in FileShares. */
-public final class FileSharesImpl {
-    private final ClientLogger logger = new ClientLogger(FileSharesImpl.class);
+public final class FileSharesClientImpl {
+    private final ClientLogger logger = new ClientLogger(FileSharesClientImpl.class);
 
     /** The proxy service used to perform REST calls. */
     private final FileSharesService service;
@@ -49,11 +49,11 @@ public final class FileSharesImpl {
     private final StorageManagementClientImpl client;
 
     /**
-     * Initializes an instance of FileSharesImpl.
+     * Initializes an instance of FileSharesClientImpl.
      *
      * @param client the instance of the service client containing this operation class.
      */
-    FileSharesImpl(StorageManagementClientImpl client) {
+    FileSharesClientImpl(StorageManagementClientImpl client) {
         this.service =
             RestProxy.create(FileSharesService.class, client.getHttpPipeline(), client.getSerializerAdapter());
         this.client = client;

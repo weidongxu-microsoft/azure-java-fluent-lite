@@ -9,7 +9,7 @@ import com.azure.core.annotation.ServiceClient;
 import com.azure.core.annotation.ServiceMethod;
 import com.azure.core.management.exception.ManagementException;
 import com.azure.core.util.Context;
-import com.azure.resourcemanager.generated.storage.fluent.ManagementPoliciesImpl;
+import com.azure.resourcemanager.generated.storage.fluent.ManagementPoliciesClientImpl;
 import com.azure.resourcemanager.generated.storage.fluent.inner.ManagementPolicyInner;
 import com.azure.resourcemanager.generated.storage.models.ManagementPolicyName;
 import com.azure.resourcemanager.generated.storage.models.ManagementPolicySchema;
@@ -17,10 +17,10 @@ import com.azure.resourcemanager.generated.storage.models.ManagementPolicySchema
 /** Initializes a new instance of the synchronous StorageManagementClient type. */
 @ServiceClient(builder = StorageManagementClientBuilder.class)
 public final class ManagementPoliciesClient {
-    private ManagementPoliciesImpl serviceClient;
+    private ManagementPoliciesClientImpl serviceClient;
 
     /** Initializes an instance of ManagementPolicies client. */
-    ManagementPoliciesClient(ManagementPoliciesImpl serviceClient) {
+    ManagementPoliciesClient(ManagementPoliciesClientImpl serviceClient) {
         this.serviceClient = serviceClient;
     }
 

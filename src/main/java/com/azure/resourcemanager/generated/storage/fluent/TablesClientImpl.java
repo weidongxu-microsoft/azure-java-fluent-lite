@@ -33,8 +33,8 @@ import com.azure.resourcemanager.generated.storage.fluent.inner.TableInner;
 import reactor.core.publisher.Mono;
 
 /** An instance of this class provides access to all the operations defined in Tables. */
-public final class TablesImpl {
-    private final ClientLogger logger = new ClientLogger(TablesImpl.class);
+public final class TablesClientImpl {
+    private final ClientLogger logger = new ClientLogger(TablesClientImpl.class);
 
     /** The proxy service used to perform REST calls. */
     private final TablesService service;
@@ -43,11 +43,11 @@ public final class TablesImpl {
     private final StorageManagementClientImpl client;
 
     /**
-     * Initializes an instance of TablesImpl.
+     * Initializes an instance of TablesClientImpl.
      *
      * @param client the instance of the service client containing this operation class.
      */
-    TablesImpl(StorageManagementClientImpl client) {
+    TablesClientImpl(StorageManagementClientImpl client) {
         this.service = RestProxy.create(TablesService.class, client.getHttpPipeline(), client.getSerializerAdapter());
         this.client = client;
     }

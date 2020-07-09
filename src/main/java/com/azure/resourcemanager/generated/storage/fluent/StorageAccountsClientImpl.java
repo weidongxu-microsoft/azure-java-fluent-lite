@@ -57,11 +57,11 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /** An instance of this class provides access to all the operations defined in StorageAccounts. */
-public final class StorageAccountsImpl
+public final class StorageAccountsClientImpl
     implements InnerSupportsGet<StorageAccountInner>,
         InnerSupportsListing<StorageAccountInner>,
         InnerSupportsDelete<Void> {
-    private final ClientLogger logger = new ClientLogger(StorageAccountsImpl.class);
+    private final ClientLogger logger = new ClientLogger(StorageAccountsClientImpl.class);
 
     /** The proxy service used to perform REST calls. */
     private final StorageAccountsService service;
@@ -70,11 +70,11 @@ public final class StorageAccountsImpl
     private final StorageManagementClientImpl client;
 
     /**
-     * Initializes an instance of StorageAccountsImpl.
+     * Initializes an instance of StorageAccountsClientImpl.
      *
      * @param client the instance of the service client containing this operation class.
      */
-    StorageAccountsImpl(StorageManagementClientImpl client) {
+    StorageAccountsClientImpl(StorageManagementClientImpl client) {
         this.service =
             RestProxy.create(StorageAccountsService.class, client.getHttpPipeline(), client.getSerializerAdapter());
         this.client = client;

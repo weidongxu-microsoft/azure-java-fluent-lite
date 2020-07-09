@@ -10,7 +10,7 @@ import com.azure.core.annotation.ServiceMethod;
 import com.azure.core.http.rest.PagedIterable;
 import com.azure.core.management.exception.ManagementException;
 import com.azure.core.util.Context;
-import com.azure.resourcemanager.generated.storage.fluent.BlobContainersImpl;
+import com.azure.resourcemanager.generated.storage.fluent.BlobContainersClientImpl;
 import com.azure.resourcemanager.generated.storage.fluent.inner.BlobContainerInner;
 import com.azure.resourcemanager.generated.storage.fluent.inner.ImmutabilityPolicyInner;
 import com.azure.resourcemanager.generated.storage.fluent.inner.LeaseContainerResponseInner;
@@ -23,10 +23,10 @@ import java.util.List;
 /** Initializes a new instance of the synchronous StorageManagementClient type. */
 @ServiceClient(builder = StorageManagementClientBuilder.class)
 public final class BlobContainersClient {
-    private BlobContainersImpl serviceClient;
+    private BlobContainersClientImpl serviceClient;
 
     /** Initializes an instance of BlobContainers client. */
-    BlobContainersClient(BlobContainersImpl serviceClient) {
+    BlobContainersClient(BlobContainersClientImpl serviceClient) {
         this.serviceClient = serviceClient;
     }
 

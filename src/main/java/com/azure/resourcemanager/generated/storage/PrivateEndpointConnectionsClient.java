@@ -10,16 +10,16 @@ import com.azure.core.annotation.ServiceMethod;
 import com.azure.core.http.rest.PagedIterable;
 import com.azure.core.management.exception.ManagementException;
 import com.azure.core.util.Context;
-import com.azure.resourcemanager.generated.storage.fluent.PrivateEndpointConnectionsImpl;
+import com.azure.resourcemanager.generated.storage.fluent.PrivateEndpointConnectionsClientImpl;
 import com.azure.resourcemanager.generated.storage.fluent.inner.PrivateEndpointConnectionInner;
 
 /** Initializes a new instance of the synchronous StorageManagementClient type. */
 @ServiceClient(builder = StorageManagementClientBuilder.class)
 public final class PrivateEndpointConnectionsClient {
-    private PrivateEndpointConnectionsImpl serviceClient;
+    private PrivateEndpointConnectionsClientImpl serviceClient;
 
     /** Initializes an instance of PrivateEndpointConnections client. */
-    PrivateEndpointConnectionsClient(PrivateEndpointConnectionsImpl serviceClient) {
+    PrivateEndpointConnectionsClient(PrivateEndpointConnectionsClientImpl serviceClient) {
         this.serviceClient = serviceClient;
     }
 

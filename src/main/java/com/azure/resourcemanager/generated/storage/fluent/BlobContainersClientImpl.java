@@ -48,8 +48,8 @@ import java.util.List;
 import reactor.core.publisher.Mono;
 
 /** An instance of this class provides access to all the operations defined in BlobContainers. */
-public final class BlobContainersImpl {
-    private final ClientLogger logger = new ClientLogger(BlobContainersImpl.class);
+public final class BlobContainersClientImpl {
+    private final ClientLogger logger = new ClientLogger(BlobContainersClientImpl.class);
 
     /** The proxy service used to perform REST calls. */
     private final BlobContainersService service;
@@ -58,11 +58,11 @@ public final class BlobContainersImpl {
     private final StorageManagementClientImpl client;
 
     /**
-     * Initializes an instance of BlobContainersImpl.
+     * Initializes an instance of BlobContainersClientImpl.
      *
      * @param client the instance of the service client containing this operation class.
      */
-    BlobContainersImpl(StorageManagementClientImpl client) {
+    BlobContainersClientImpl(StorageManagementClientImpl client) {
         this.service =
             RestProxy.create(BlobContainersService.class, client.getHttpPipeline(), client.getSerializerAdapter());
         this.client = client;

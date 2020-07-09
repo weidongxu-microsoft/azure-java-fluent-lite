@@ -33,8 +33,8 @@ import com.azure.resourcemanager.generated.storage.fluent.inner.PrivateEndpointC
 import reactor.core.publisher.Mono;
 
 /** An instance of this class provides access to all the operations defined in PrivateEndpointConnections. */
-public final class PrivateEndpointConnectionsImpl {
-    private final ClientLogger logger = new ClientLogger(PrivateEndpointConnectionsImpl.class);
+public final class PrivateEndpointConnectionsClientImpl {
+    private final ClientLogger logger = new ClientLogger(PrivateEndpointConnectionsClientImpl.class);
 
     /** The proxy service used to perform REST calls. */
     private final PrivateEndpointConnectionsService service;
@@ -43,11 +43,11 @@ public final class PrivateEndpointConnectionsImpl {
     private final StorageManagementClientImpl client;
 
     /**
-     * Initializes an instance of PrivateEndpointConnectionsImpl.
+     * Initializes an instance of PrivateEndpointConnectionsClientImpl.
      *
      * @param client the instance of the service client containing this operation class.
      */
-    PrivateEndpointConnectionsImpl(StorageManagementClientImpl client) {
+    PrivateEndpointConnectionsClientImpl(StorageManagementClientImpl client) {
         this.service =
             RestProxy
                 .create(

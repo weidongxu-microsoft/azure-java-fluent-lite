@@ -5,6 +5,7 @@
 package com.azure.resourcemanager.generated.storage.fluent;
 
 import com.azure.core.annotation.BodyParam;
+import com.azure.core.annotation.Delete;
 import com.azure.core.annotation.ExpectedResponses;
 import com.azure.core.annotation.Get;
 import com.azure.core.annotation.Headers;
@@ -23,99 +24,102 @@ import com.azure.core.management.exception.ManagementException;
 import com.azure.core.util.Context;
 import com.azure.core.util.FluxUtil;
 import com.azure.core.util.logging.ClientLogger;
-import com.azure.resourcemanager.generated.storage.fluent.inner.ListTableServicesInner;
-import com.azure.resourcemanager.generated.storage.fluent.inner.TableServicePropertiesInner;
-import com.azure.resourcemanager.generated.storage.models.CorsRules;
+import com.azure.resourcemanager.generated.storage.fluent.inner.ManagementPolicyInner;
+import com.azure.resourcemanager.generated.storage.models.ManagementPolicyName;
+import com.azure.resourcemanager.generated.storage.models.ManagementPolicySchema;
 import reactor.core.publisher.Mono;
 
-/** An instance of this class provides access to all the operations defined in TableServices. */
-public final class TableServicesImpl {
-    private final ClientLogger logger = new ClientLogger(TableServicesImpl.class);
+/** An instance of this class provides access to all the operations defined in ManagementPolicies. */
+public final class ManagementPoliciesClientImpl {
+    private final ClientLogger logger = new ClientLogger(ManagementPoliciesClientImpl.class);
 
     /** The proxy service used to perform REST calls. */
-    private final TableServicesService service;
+    private final ManagementPoliciesService service;
 
     /** The service client containing this operation class. */
     private final StorageManagementClientImpl client;
 
     /**
-     * Initializes an instance of TableServicesImpl.
+     * Initializes an instance of ManagementPoliciesClientImpl.
      *
      * @param client the instance of the service client containing this operation class.
      */
-    TableServicesImpl(StorageManagementClientImpl client) {
+    ManagementPoliciesClientImpl(StorageManagementClientImpl client) {
         this.service =
-            RestProxy.create(TableServicesService.class, client.getHttpPipeline(), client.getSerializerAdapter());
+            RestProxy.create(ManagementPoliciesService.class, client.getHttpPipeline(), client.getSerializerAdapter());
         this.client = client;
     }
 
     /**
-     * The interface defining all the services for StorageManagementClientTableServices to be used by the proxy service
-     * to perform REST calls.
+     * The interface defining all the services for StorageManagementClientManagementPolicies to be used by the proxy
+     * service to perform REST calls.
      */
     @Host("{$host}")
     @ServiceInterface(name = "StorageManagementCli")
-    private interface TableServicesService {
+    private interface ManagementPoliciesService {
         @Headers({"Accept: application/json", "Content-Type: application/json"})
         @Get(
             "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage"
-                + "/storageAccounts/{accountName}/tableServices")
+                + "/storageAccounts/{accountName}/managementPolicies/{managementPolicyName}")
         @ExpectedResponses({200})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<ListTableServicesInner>> list(
+        Mono<Response<ManagementPolicyInner>> get(
             @HostParam("$host") String endpoint,
             @PathParam("resourceGroupName") String resourceGroupName,
             @PathParam("accountName") String accountName,
             @QueryParam("api-version") String apiVersion,
             @PathParam("subscriptionId") String subscriptionId,
+            @PathParam("managementPolicyName") ManagementPolicyName managementPolicyName,
             Context context);
 
         @Headers({"Accept: application/json", "Content-Type: application/json"})
         @Put(
             "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage"
-                + "/storageAccounts/{accountName}/tableServices/{tableServiceName}")
+                + "/storageAccounts/{accountName}/managementPolicies/{managementPolicyName}")
         @ExpectedResponses({200})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<TableServicePropertiesInner>> setServiceProperties(
+        Mono<Response<ManagementPolicyInner>> createOrUpdate(
             @HostParam("$host") String endpoint,
             @PathParam("resourceGroupName") String resourceGroupName,
             @PathParam("accountName") String accountName,
             @QueryParam("api-version") String apiVersion,
             @PathParam("subscriptionId") String subscriptionId,
-            @PathParam("tableServiceName") String tableServiceName,
-            @BodyParam("application/json") TableServicePropertiesInner parameters,
+            @PathParam("managementPolicyName") ManagementPolicyName managementPolicyName,
+            @BodyParam("application/json") ManagementPolicyInner properties,
             Context context);
 
-        @Headers({"Accept: application/json", "Content-Type: application/json"})
-        @Get(
+        @Headers({"Accept: application/json;q=0.9", "Content-Type: application/json"})
+        @Delete(
             "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage"
-                + "/storageAccounts/{accountName}/tableServices/{tableServiceName}")
-        @ExpectedResponses({200})
+                + "/storageAccounts/{accountName}/managementPolicies/{managementPolicyName}")
+        @ExpectedResponses({200, 204})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<TableServicePropertiesInner>> getServiceProperties(
+        Mono<Response<Void>> delete(
             @HostParam("$host") String endpoint,
             @PathParam("resourceGroupName") String resourceGroupName,
             @PathParam("accountName") String accountName,
             @QueryParam("api-version") String apiVersion,
             @PathParam("subscriptionId") String subscriptionId,
-            @PathParam("tableServiceName") String tableServiceName,
+            @PathParam("managementPolicyName") ManagementPolicyName managementPolicyName,
             Context context);
     }
 
     /**
-     * List all table services for the storage account.
+     * Gets the managementpolicy associated with the specified storage account.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
+     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the response.
+     * @return the managementpolicy associated with the specified storage account.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<Response<ListTableServicesInner>> listWithResponseAsync(String resourceGroupName, String accountName) {
+    public Mono<Response<ManagementPolicyInner>> getWithResponseAsync(
+        String resourceGroupName, String accountName, ManagementPolicyName managementPolicyName) {
         if (this.client.getEndpoint() == null) {
             return Mono
                 .error(
@@ -134,37 +138,43 @@ public final class TableServicesImpl {
                 .error(
                     new IllegalArgumentException(
                         "Parameter this.client.getSubscriptionId() is required and cannot be null."));
+        }
+        if (managementPolicyName == null) {
+            return Mono
+                .error(new IllegalArgumentException("Parameter managementPolicyName is required and cannot be null."));
         }
         return FluxUtil
             .withContext(
                 context ->
                     service
-                        .list(
+                        .get(
                             this.client.getEndpoint(),
                             resourceGroupName,
                             accountName,
                             this.client.getApiVersion(),
                             this.client.getSubscriptionId(),
+                            managementPolicyName,
                             context))
             .subscriberContext(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext())));
     }
 
     /**
-     * List all table services for the storage account.
+     * Gets the managementpolicy associated with the specified storage account.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
+     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the response.
+     * @return the managementpolicy associated with the specified storage account.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<Response<ListTableServicesInner>> listWithResponseAsync(
-        String resourceGroupName, String accountName, Context context) {
+    public Mono<Response<ManagementPolicyInner>> getWithResponseAsync(
+        String resourceGroupName, String accountName, ManagementPolicyName managementPolicyName, Context context) {
         if (this.client.getEndpoint() == null) {
             return Mono
                 .error(
@@ -184,34 +194,41 @@ public final class TableServicesImpl {
                     new IllegalArgumentException(
                         "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
+        if (managementPolicyName == null) {
+            return Mono
+                .error(new IllegalArgumentException("Parameter managementPolicyName is required and cannot be null."));
+        }
         context = this.client.mergeContext(context);
         return service
-            .list(
+            .get(
                 this.client.getEndpoint(),
                 resourceGroupName,
                 accountName,
                 this.client.getApiVersion(),
                 this.client.getSubscriptionId(),
+                managementPolicyName,
                 context);
     }
 
     /**
-     * List all table services for the storage account.
+     * Gets the managementpolicy associated with the specified storage account.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
+     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the response.
+     * @return the managementpolicy associated with the specified storage account.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<ListTableServicesInner> listAsync(String resourceGroupName, String accountName) {
-        return listWithResponseAsync(resourceGroupName, accountName)
+    public Mono<ManagementPolicyInner> getAsync(
+        String resourceGroupName, String accountName, ManagementPolicyName managementPolicyName) {
+        return getWithResponseAsync(resourceGroupName, accountName, managementPolicyName)
             .flatMap(
-                (Response<ListTableServicesInner> res) -> {
+                (Response<ManagementPolicyInner> res) -> {
                     if (res.getValue() != null) {
                         return Mono.just(res.getValue());
                     } else {
@@ -221,23 +238,25 @@ public final class TableServicesImpl {
     }
 
     /**
-     * List all table services for the storage account.
+     * Gets the managementpolicy associated with the specified storage account.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
+     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the response.
+     * @return the managementpolicy associated with the specified storage account.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<ListTableServicesInner> listAsync(String resourceGroupName, String accountName, Context context) {
-        return listWithResponseAsync(resourceGroupName, accountName, context)
+    public Mono<ManagementPolicyInner> getAsync(
+        String resourceGroupName, String accountName, ManagementPolicyName managementPolicyName, Context context) {
+        return getWithResponseAsync(resourceGroupName, accountName, managementPolicyName, context)
             .flatMap(
-                (Response<ListTableServicesInner> res) -> {
+                (Response<ManagementPolicyInner> res) -> {
                     if (res.getValue() != null) {
                         return Mono.just(res.getValue());
                     } else {
@@ -247,57 +266,65 @@ public final class TableServicesImpl {
     }
 
     /**
-     * List all table services for the storage account.
+     * Gets the managementpolicy associated with the specified storage account.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
+     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the response.
+     * @return the managementpolicy associated with the specified storage account.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public ListTableServicesInner list(String resourceGroupName, String accountName) {
-        return listAsync(resourceGroupName, accountName).block();
+    public ManagementPolicyInner get(
+        String resourceGroupName, String accountName, ManagementPolicyName managementPolicyName) {
+        return getAsync(resourceGroupName, accountName, managementPolicyName).block();
     }
 
     /**
-     * List all table services for the storage account.
+     * Gets the managementpolicy associated with the specified storage account.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
+     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the response.
+     * @return the managementpolicy associated with the specified storage account.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public ListTableServicesInner list(String resourceGroupName, String accountName, Context context) {
-        return listAsync(resourceGroupName, accountName, context).block();
+    public ManagementPolicyInner get(
+        String resourceGroupName, String accountName, ManagementPolicyName managementPolicyName, Context context) {
+        return getAsync(resourceGroupName, accountName, managementPolicyName, context).block();
     }
 
     /**
-     * Sets the properties of a storage account’s Table service, including properties for Storage Analytics and CORS
-     * (Cross-Origin Resource Sharing) rules.
+     * Sets the managementpolicy to the specified storage account.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
-     * @param cors Sets the CORS rules. You can include up to five CorsRule elements in the request.
+     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
+     * @param policy The Storage Account ManagementPolicies Rules. See more details in:
+     *     https://docs.microsoft.com/en-us/azure/storage/common/storage-lifecycle-managment-concepts.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the properties of a storage account’s Table service.
+     * @return the Get Storage Account ManagementPolicies operation response.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<Response<TableServicePropertiesInner>> setServicePropertiesWithResponseAsync(
-        String resourceGroupName, String accountName, CorsRules cors) {
+    public Mono<Response<ManagementPolicyInner>> createOrUpdateWithResponseAsync(
+        String resourceGroupName,
+        String accountName,
+        ManagementPolicyName managementPolicyName,
+        ManagementPolicySchema policy) {
         if (this.client.getEndpoint() == null) {
             return Mono
                 .error(
@@ -317,46 +344,54 @@ public final class TableServicesImpl {
                     new IllegalArgumentException(
                         "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
-        if (cors != null) {
-            cors.validate();
+        if (managementPolicyName == null) {
+            return Mono
+                .error(new IllegalArgumentException("Parameter managementPolicyName is required and cannot be null."));
         }
-        final String tableServiceName = "default";
-        TableServicePropertiesInner parameters = new TableServicePropertiesInner();
-        parameters.withCors(cors);
+        if (policy != null) {
+            policy.validate();
+        }
+        ManagementPolicyInner properties = new ManagementPolicyInner();
+        properties.withPolicy(policy);
         return FluxUtil
             .withContext(
                 context ->
                     service
-                        .setServiceProperties(
+                        .createOrUpdate(
                             this.client.getEndpoint(),
                             resourceGroupName,
                             accountName,
                             this.client.getApiVersion(),
                             this.client.getSubscriptionId(),
-                            tableServiceName,
-                            parameters,
+                            managementPolicyName,
+                            properties,
                             context))
             .subscriberContext(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext())));
     }
 
     /**
-     * Sets the properties of a storage account’s Table service, including properties for Storage Analytics and CORS
-     * (Cross-Origin Resource Sharing) rules.
+     * Sets the managementpolicy to the specified storage account.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
-     * @param cors Sets the CORS rules. You can include up to five CorsRule elements in the request.
+     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
+     * @param policy The Storage Account ManagementPolicies Rules. See more details in:
+     *     https://docs.microsoft.com/en-us/azure/storage/common/storage-lifecycle-managment-concepts.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the properties of a storage account’s Table service.
+     * @return the Get Storage Account ManagementPolicies operation response.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<Response<TableServicePropertiesInner>> setServicePropertiesWithResponseAsync(
-        String resourceGroupName, String accountName, CorsRules cors, Context context) {
+    public Mono<Response<ManagementPolicyInner>> createOrUpdateWithResponseAsync(
+        String resourceGroupName,
+        String accountName,
+        ManagementPolicyName managementPolicyName,
+        ManagementPolicySchema policy,
+        Context context) {
         if (this.client.getEndpoint() == null) {
             return Mono
                 .error(
@@ -376,45 +411,52 @@ public final class TableServicesImpl {
                     new IllegalArgumentException(
                         "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
-        if (cors != null) {
-            cors.validate();
+        if (managementPolicyName == null) {
+            return Mono
+                .error(new IllegalArgumentException("Parameter managementPolicyName is required and cannot be null."));
         }
-        final String tableServiceName = "default";
-        TableServicePropertiesInner parameters = new TableServicePropertiesInner();
-        parameters.withCors(cors);
+        if (policy != null) {
+            policy.validate();
+        }
+        ManagementPolicyInner properties = new ManagementPolicyInner();
+        properties.withPolicy(policy);
         context = this.client.mergeContext(context);
         return service
-            .setServiceProperties(
+            .createOrUpdate(
                 this.client.getEndpoint(),
                 resourceGroupName,
                 accountName,
                 this.client.getApiVersion(),
                 this.client.getSubscriptionId(),
-                tableServiceName,
-                parameters,
+                managementPolicyName,
+                properties,
                 context);
     }
 
     /**
-     * Sets the properties of a storage account’s Table service, including properties for Storage Analytics and CORS
-     * (Cross-Origin Resource Sharing) rules.
+     * Sets the managementpolicy to the specified storage account.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
-     * @param cors Sets the CORS rules. You can include up to five CorsRule elements in the request.
+     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
+     * @param policy The Storage Account ManagementPolicies Rules. See more details in:
+     *     https://docs.microsoft.com/en-us/azure/storage/common/storage-lifecycle-managment-concepts.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the properties of a storage account’s Table service.
+     * @return the Get Storage Account ManagementPolicies operation response.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<TableServicePropertiesInner> setServicePropertiesAsync(
-        String resourceGroupName, String accountName, CorsRules cors) {
-        return setServicePropertiesWithResponseAsync(resourceGroupName, accountName, cors)
+    public Mono<ManagementPolicyInner> createOrUpdateAsync(
+        String resourceGroupName,
+        String accountName,
+        ManagementPolicyName managementPolicyName,
+        ManagementPolicySchema policy) {
+        return createOrUpdateWithResponseAsync(resourceGroupName, accountName, managementPolicyName, policy)
             .flatMap(
-                (Response<TableServicePropertiesInner> res) -> {
+                (Response<ManagementPolicyInner> res) -> {
                     if (res.getValue() != null) {
                         return Mono.just(res.getValue());
                     } else {
@@ -424,26 +466,31 @@ public final class TableServicesImpl {
     }
 
     /**
-     * Sets the properties of a storage account’s Table service, including properties for Storage Analytics and CORS
-     * (Cross-Origin Resource Sharing) rules.
+     * Sets the managementpolicy to the specified storage account.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
-     * @param cors Sets the CORS rules. You can include up to five CorsRule elements in the request.
+     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
+     * @param policy The Storage Account ManagementPolicies Rules. See more details in:
+     *     https://docs.microsoft.com/en-us/azure/storage/common/storage-lifecycle-managment-concepts.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the properties of a storage account’s Table service.
+     * @return the Get Storage Account ManagementPolicies operation response.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<TableServicePropertiesInner> setServicePropertiesAsync(
-        String resourceGroupName, String accountName, CorsRules cors, Context context) {
-        return setServicePropertiesWithResponseAsync(resourceGroupName, accountName, cors, context)
+    public Mono<ManagementPolicyInner> createOrUpdateAsync(
+        String resourceGroupName,
+        String accountName,
+        ManagementPolicyName managementPolicyName,
+        ManagementPolicySchema policy,
+        Context context) {
+        return createOrUpdateWithResponseAsync(resourceGroupName, accountName, managementPolicyName, policy, context)
             .flatMap(
-                (Response<TableServicePropertiesInner> res) -> {
+                (Response<ManagementPolicyInner> res) -> {
                     if (res.getValue() != null) {
                         return Mono.just(res.getValue());
                     } else {
@@ -453,63 +500,71 @@ public final class TableServicesImpl {
     }
 
     /**
-     * Sets the properties of a storage account’s Table service, including properties for Storage Analytics and CORS
-     * (Cross-Origin Resource Sharing) rules.
+     * Sets the managementpolicy to the specified storage account.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
-     * @param cors Sets the CORS rules. You can include up to five CorsRule elements in the request.
+     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
+     * @param policy The Storage Account ManagementPolicies Rules. See more details in:
+     *     https://docs.microsoft.com/en-us/azure/storage/common/storage-lifecycle-managment-concepts.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the properties of a storage account’s Table service.
+     * @return the Get Storage Account ManagementPolicies operation response.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public TableServicePropertiesInner setServiceProperties(
-        String resourceGroupName, String accountName, CorsRules cors) {
-        return setServicePropertiesAsync(resourceGroupName, accountName, cors).block();
+    public ManagementPolicyInner createOrUpdate(
+        String resourceGroupName,
+        String accountName,
+        ManagementPolicyName managementPolicyName,
+        ManagementPolicySchema policy) {
+        return createOrUpdateAsync(resourceGroupName, accountName, managementPolicyName, policy).block();
     }
 
     /**
-     * Sets the properties of a storage account’s Table service, including properties for Storage Analytics and CORS
-     * (Cross-Origin Resource Sharing) rules.
+     * Sets the managementpolicy to the specified storage account.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
-     * @param cors Sets the CORS rules. You can include up to five CorsRule elements in the request.
+     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
+     * @param policy The Storage Account ManagementPolicies Rules. See more details in:
+     *     https://docs.microsoft.com/en-us/azure/storage/common/storage-lifecycle-managment-concepts.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the properties of a storage account’s Table service.
+     * @return the Get Storage Account ManagementPolicies operation response.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public TableServicePropertiesInner setServiceProperties(
-        String resourceGroupName, String accountName, CorsRules cors, Context context) {
-        return setServicePropertiesAsync(resourceGroupName, accountName, cors, context).block();
+    public ManagementPolicyInner createOrUpdate(
+        String resourceGroupName,
+        String accountName,
+        ManagementPolicyName managementPolicyName,
+        ManagementPolicySchema policy,
+        Context context) {
+        return createOrUpdateAsync(resourceGroupName, accountName, managementPolicyName, policy, context).block();
     }
 
     /**
-     * Gets the properties of a storage account’s Table service, including properties for Storage Analytics and CORS
-     * (Cross-Origin Resource Sharing) rules.
+     * Deletes the managementpolicy associated with the specified storage account.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
+     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the properties of a storage account’s Table service, including properties for Storage Analytics and CORS
-     *     (Cross-Origin Resource Sharing) rules.
+     * @return the completion.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<Response<TableServicePropertiesInner>> getServicePropertiesWithResponseAsync(
-        String resourceGroupName, String accountName) {
+    public Mono<Response<Void>> deleteWithResponseAsync(
+        String resourceGroupName, String accountName, ManagementPolicyName managementPolicyName) {
         if (this.client.getEndpoint() == null) {
             return Mono
                 .error(
@@ -529,40 +584,42 @@ public final class TableServicesImpl {
                     new IllegalArgumentException(
                         "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
-        final String tableServiceName = "default";
+        if (managementPolicyName == null) {
+            return Mono
+                .error(new IllegalArgumentException("Parameter managementPolicyName is required and cannot be null."));
+        }
         return FluxUtil
             .withContext(
                 context ->
                     service
-                        .getServiceProperties(
+                        .delete(
                             this.client.getEndpoint(),
                             resourceGroupName,
                             accountName,
                             this.client.getApiVersion(),
                             this.client.getSubscriptionId(),
-                            tableServiceName,
+                            managementPolicyName,
                             context))
             .subscriberContext(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext())));
     }
 
     /**
-     * Gets the properties of a storage account’s Table service, including properties for Storage Analytics and CORS
-     * (Cross-Origin Resource Sharing) rules.
+     * Deletes the managementpolicy associated with the specified storage account.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
+     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the properties of a storage account’s Table service, including properties for Storage Analytics and CORS
-     *     (Cross-Origin Resource Sharing) rules.
+     * @return the completion.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<Response<TableServicePropertiesInner>> getServicePropertiesWithResponseAsync(
-        String resourceGroupName, String accountName, Context context) {
+    public Mono<Response<Void>> deleteWithResponseAsync(
+        String resourceGroupName, String accountName, ManagementPolicyName managementPolicyName, Context context) {
         if (this.client.getEndpoint() == null) {
             return Mono
                 .error(
@@ -582,112 +639,96 @@ public final class TableServicesImpl {
                     new IllegalArgumentException(
                         "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
-        final String tableServiceName = "default";
+        if (managementPolicyName == null) {
+            return Mono
+                .error(new IllegalArgumentException("Parameter managementPolicyName is required and cannot be null."));
+        }
         context = this.client.mergeContext(context);
         return service
-            .getServiceProperties(
+            .delete(
                 this.client.getEndpoint(),
                 resourceGroupName,
                 accountName,
                 this.client.getApiVersion(),
                 this.client.getSubscriptionId(),
-                tableServiceName,
+                managementPolicyName,
                 context);
     }
 
     /**
-     * Gets the properties of a storage account’s Table service, including properties for Storage Analytics and CORS
-     * (Cross-Origin Resource Sharing) rules.
+     * Deletes the managementpolicy associated with the specified storage account.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
+     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the properties of a storage account’s Table service, including properties for Storage Analytics and CORS
-     *     (Cross-Origin Resource Sharing) rules.
+     * @return the completion.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<TableServicePropertiesInner> getServicePropertiesAsync(String resourceGroupName, String accountName) {
-        return getServicePropertiesWithResponseAsync(resourceGroupName, accountName)
-            .flatMap(
-                (Response<TableServicePropertiesInner> res) -> {
-                    if (res.getValue() != null) {
-                        return Mono.just(res.getValue());
-                    } else {
-                        return Mono.empty();
-                    }
-                });
+    public Mono<Void> deleteAsync(
+        String resourceGroupName, String accountName, ManagementPolicyName managementPolicyName) {
+        return deleteWithResponseAsync(resourceGroupName, accountName, managementPolicyName)
+            .flatMap((Response<Void> res) -> Mono.empty());
     }
 
     /**
-     * Gets the properties of a storage account’s Table service, including properties for Storage Analytics and CORS
-     * (Cross-Origin Resource Sharing) rules.
+     * Deletes the managementpolicy associated with the specified storage account.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
+     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the properties of a storage account’s Table service, including properties for Storage Analytics and CORS
-     *     (Cross-Origin Resource Sharing) rules.
+     * @return the completion.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<TableServicePropertiesInner> getServicePropertiesAsync(
-        String resourceGroupName, String accountName, Context context) {
-        return getServicePropertiesWithResponseAsync(resourceGroupName, accountName, context)
-            .flatMap(
-                (Response<TableServicePropertiesInner> res) -> {
-                    if (res.getValue() != null) {
-                        return Mono.just(res.getValue());
-                    } else {
-                        return Mono.empty();
-                    }
-                });
+    public Mono<Void> deleteAsync(
+        String resourceGroupName, String accountName, ManagementPolicyName managementPolicyName, Context context) {
+        return deleteWithResponseAsync(resourceGroupName, accountName, managementPolicyName, context)
+            .flatMap((Response<Void> res) -> Mono.empty());
     }
 
     /**
-     * Gets the properties of a storage account’s Table service, including properties for Storage Analytics and CORS
-     * (Cross-Origin Resource Sharing) rules.
+     * Deletes the managementpolicy associated with the specified storage account.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
+     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the properties of a storage account’s Table service, including properties for Storage Analytics and CORS
-     *     (Cross-Origin Resource Sharing) rules.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public TableServicePropertiesInner getServiceProperties(String resourceGroupName, String accountName) {
-        return getServicePropertiesAsync(resourceGroupName, accountName).block();
+    public void delete(String resourceGroupName, String accountName, ManagementPolicyName managementPolicyName) {
+        deleteAsync(resourceGroupName, accountName, managementPolicyName).block();
     }
 
     /**
-     * Gets the properties of a storage account’s Table service, including properties for Storage Analytics and CORS
-     * (Cross-Origin Resource Sharing) rules.
+     * Deletes the managementpolicy associated with the specified storage account.
      *
      * @param resourceGroupName The name of the resource group within the user's subscription. The name is case
      *     insensitive.
      * @param accountName The name of the storage account within the specified resource group. Storage account names
      *     must be between 3 and 24 characters in length and use numbers and lower-case letters only.
+     * @param managementPolicyName The name of the Storage Account Management Policy. It should always be 'default'.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the properties of a storage account’s Table service, including properties for Storage Analytics and CORS
-     *     (Cross-Origin Resource Sharing) rules.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public TableServicePropertiesInner getServiceProperties(
-        String resourceGroupName, String accountName, Context context) {
-        return getServicePropertiesAsync(resourceGroupName, accountName, context).block();
+    public void delete(
+        String resourceGroupName, String accountName, ManagementPolicyName managementPolicyName, Context context) {
+        deleteAsync(resourceGroupName, accountName, managementPolicyName, context).block();
     }
 }

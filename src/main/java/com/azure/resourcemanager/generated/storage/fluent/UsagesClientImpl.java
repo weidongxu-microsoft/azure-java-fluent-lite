@@ -25,57 +25,60 @@ import com.azure.core.management.exception.ManagementException;
 import com.azure.core.util.Context;
 import com.azure.core.util.FluxUtil;
 import com.azure.core.util.logging.ClientLogger;
-import com.azure.resourcemanager.generated.storage.fluent.inner.SkuInformationInner;
-import com.azure.resourcemanager.generated.storage.fluent.inner.StorageSkuListResultInner;
+import com.azure.resourcemanager.generated.storage.fluent.inner.UsageInner;
+import com.azure.resourcemanager.generated.storage.fluent.inner.UsageListResultInner;
 import reactor.core.publisher.Mono;
 
-/** An instance of this class provides access to all the operations defined in Skus. */
-public final class SkusImpl {
-    private final ClientLogger logger = new ClientLogger(SkusImpl.class);
+/** An instance of this class provides access to all the operations defined in Usages. */
+public final class UsagesClientImpl {
+    private final ClientLogger logger = new ClientLogger(UsagesClientImpl.class);
 
     /** The proxy service used to perform REST calls. */
-    private final SkusService service;
+    private final UsagesService service;
 
     /** The service client containing this operation class. */
     private final StorageManagementClientImpl client;
 
     /**
-     * Initializes an instance of SkusImpl.
+     * Initializes an instance of UsagesClientImpl.
      *
      * @param client the instance of the service client containing this operation class.
      */
-    SkusImpl(StorageManagementClientImpl client) {
-        this.service = RestProxy.create(SkusService.class, client.getHttpPipeline(), client.getSerializerAdapter());
+    UsagesClientImpl(StorageManagementClientImpl client) {
+        this.service = RestProxy.create(UsagesService.class, client.getHttpPipeline(), client.getSerializerAdapter());
         this.client = client;
     }
 
     /**
-     * The interface defining all the services for StorageManagementClientSkus to be used by the proxy service to
+     * The interface defining all the services for StorageManagementClientUsages to be used by the proxy service to
      * perform REST calls.
      */
     @Host("{$host}")
     @ServiceInterface(name = "StorageManagementCli")
-    private interface SkusService {
+    private interface UsagesService {
         @Headers({"Accept: application/json", "Content-Type: application/json"})
-        @Get("/subscriptions/{subscriptionId}/providers/Microsoft.Storage/skus")
+        @Get("/subscriptions/{subscriptionId}/providers/Microsoft.Storage/locations/{location}/usages")
         @ExpectedResponses({200})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<StorageSkuListResultInner>> list(
+        Mono<Response<UsageListResultInner>> listByLocation(
             @HostParam("$host") String endpoint,
             @QueryParam("api-version") String apiVersion,
             @PathParam("subscriptionId") String subscriptionId,
+            @PathParam("location") String location,
             Context context);
     }
 
     /**
-     * Lists the available SKUs supported by Microsoft.Storage for given subscription.
+     * Gets the current usage count and the limit for the resources of the location under the subscription.
      *
+     * @param location The location of the Azure Storage resource.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the response from the List Storage SKUs operation.
+     * @return the current usage count and the limit for the resources of the location under the subscription.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<PagedResponse<SkuInformationInner>> listSinglePageAsync() {
+    public Mono<PagedResponse<UsageInner>> listByLocationSinglePageAsync(String location) {
         if (this.client.getEndpoint() == null) {
             return Mono
                 .error(
@@ -88,16 +91,20 @@ public final class SkusImpl {
                     new IllegalArgumentException(
                         "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
+        if (location == null) {
+            return Mono.error(new IllegalArgumentException("Parameter location is required and cannot be null."));
+        }
         return FluxUtil
             .withContext(
                 context ->
                     service
-                        .list(
+                        .listByLocation(
                             this.client.getEndpoint(),
                             this.client.getApiVersion(),
                             this.client.getSubscriptionId(),
+                            location,
                             context))
-            .<PagedResponse<SkuInformationInner>>map(
+            .<PagedResponse<UsageInner>>map(
                 res ->
                     new PagedResponseBase<>(
                         res.getRequest(), res.getStatusCode(), res.getHeaders(), res.getValue().value(), null, null))
@@ -105,16 +112,17 @@ public final class SkusImpl {
     }
 
     /**
-     * Lists the available SKUs supported by Microsoft.Storage for given subscription.
+     * Gets the current usage count and the limit for the resources of the location under the subscription.
      *
+     * @param location The location of the Azure Storage resource.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the response from the List Storage SKUs operation.
+     * @return the current usage count and the limit for the resources of the location under the subscription.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<PagedResponse<SkuInformationInner>> listSinglePageAsync(Context context) {
+    public Mono<PagedResponse<UsageInner>> listByLocationSinglePageAsync(String location, Context context) {
         if (this.client.getEndpoint() == null) {
             return Mono
                 .error(
@@ -127,9 +135,17 @@ public final class SkusImpl {
                     new IllegalArgumentException(
                         "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
+        if (location == null) {
+            return Mono.error(new IllegalArgumentException("Parameter location is required and cannot be null."));
+        }
         context = this.client.mergeContext(context);
         return service
-            .list(this.client.getEndpoint(), this.client.getApiVersion(), this.client.getSubscriptionId(), context)
+            .listByLocation(
+                this.client.getEndpoint(),
+                this.client.getApiVersion(),
+                this.client.getSubscriptionId(),
+                location,
+                context)
             .map(
                 res ->
                     new PagedResponseBase<>(
@@ -137,54 +153,60 @@ public final class SkusImpl {
     }
 
     /**
-     * Lists the available SKUs supported by Microsoft.Storage for given subscription.
+     * Gets the current usage count and the limit for the resources of the location under the subscription.
      *
+     * @param location The location of the Azure Storage resource.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the response from the List Storage SKUs operation.
+     * @return the current usage count and the limit for the resources of the location under the subscription.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
-    public PagedFlux<SkuInformationInner> listAsync() {
-        return new PagedFlux<>(() -> listSinglePageAsync());
+    public PagedFlux<UsageInner> listByLocationAsync(String location) {
+        return new PagedFlux<>(() -> listByLocationSinglePageAsync(location));
     }
 
     /**
-     * Lists the available SKUs supported by Microsoft.Storage for given subscription.
+     * Gets the current usage count and the limit for the resources of the location under the subscription.
      *
+     * @param location The location of the Azure Storage resource.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the response from the List Storage SKUs operation.
+     * @return the current usage count and the limit for the resources of the location under the subscription.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
-    public PagedFlux<SkuInformationInner> listAsync(Context context) {
-        return new PagedFlux<>(() -> listSinglePageAsync(context));
+    public PagedFlux<UsageInner> listByLocationAsync(String location, Context context) {
+        return new PagedFlux<>(() -> listByLocationSinglePageAsync(location, context));
     }
 
     /**
-     * Lists the available SKUs supported by Microsoft.Storage for given subscription.
+     * Gets the current usage count and the limit for the resources of the location under the subscription.
      *
+     * @param location The location of the Azure Storage resource.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the response from the List Storage SKUs operation.
+     * @return the current usage count and the limit for the resources of the location under the subscription.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
-    public PagedIterable<SkuInformationInner> list() {
-        return new PagedIterable<>(listAsync());
+    public PagedIterable<UsageInner> listByLocation(String location) {
+        return new PagedIterable<>(listByLocationAsync(location));
     }
 
     /**
-     * Lists the available SKUs supported by Microsoft.Storage for given subscription.
+     * Gets the current usage count and the limit for the resources of the location under the subscription.
      *
+     * @param location The location of the Azure Storage resource.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the response from the List Storage SKUs operation.
+     * @return the current usage count and the limit for the resources of the location under the subscription.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
-    public PagedIterable<SkuInformationInner> list(Context context) {
-        return new PagedIterable<>(listAsync(context));
+    public PagedIterable<UsageInner> listByLocation(String location, Context context) {
+        return new PagedIterable<>(listByLocationAsync(location, context));
     }
 }

@@ -10,16 +10,16 @@ import com.azure.core.annotation.ServiceMethod;
 import com.azure.core.http.rest.PagedIterable;
 import com.azure.core.management.exception.ManagementException;
 import com.azure.core.util.Context;
-import com.azure.resourcemanager.generated.storage.fluent.ObjectReplicationPoliciesOperationsImpl;
+import com.azure.resourcemanager.generated.storage.fluent.ObjectReplicationPoliciesOperationsClientImpl;
 import com.azure.resourcemanager.generated.storage.fluent.inner.ObjectReplicationPolicyInner;
 
 /** Initializes a new instance of the synchronous StorageManagementClient type. */
 @ServiceClient(builder = StorageManagementClientBuilder.class)
 public final class ObjectReplicationPoliciesOperationClient {
-    private ObjectReplicationPoliciesOperationsImpl serviceClient;
+    private ObjectReplicationPoliciesOperationsClientImpl serviceClient;
 
     /** Initializes an instance of ObjectReplicationPoliciesOperations client. */
-    ObjectReplicationPoliciesOperationClient(ObjectReplicationPoliciesOperationsImpl serviceClient) {
+    ObjectReplicationPoliciesOperationClient(ObjectReplicationPoliciesOperationsClientImpl serviceClient) {
         this.serviceClient = serviceClient;
     }
 

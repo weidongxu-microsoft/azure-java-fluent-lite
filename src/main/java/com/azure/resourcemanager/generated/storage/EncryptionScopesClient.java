@@ -10,16 +10,16 @@ import com.azure.core.annotation.ServiceMethod;
 import com.azure.core.http.rest.PagedIterable;
 import com.azure.core.management.exception.ManagementException;
 import com.azure.core.util.Context;
-import com.azure.resourcemanager.generated.storage.fluent.EncryptionScopesImpl;
+import com.azure.resourcemanager.generated.storage.fluent.EncryptionScopesClientImpl;
 import com.azure.resourcemanager.generated.storage.fluent.inner.EncryptionScopeInner;
 
 /** Initializes a new instance of the synchronous StorageManagementClient type. */
 @ServiceClient(builder = StorageManagementClientBuilder.class)
 public final class EncryptionScopesClient {
-    private EncryptionScopesImpl serviceClient;
+    private EncryptionScopesClientImpl serviceClient;
 
     /** Initializes an instance of EncryptionScopes client. */
-    EncryptionScopesClient(EncryptionScopesImpl serviceClient) {
+    EncryptionScopesClient(EncryptionScopesClientImpl serviceClient) {
         this.serviceClient = serviceClient;
     }
 

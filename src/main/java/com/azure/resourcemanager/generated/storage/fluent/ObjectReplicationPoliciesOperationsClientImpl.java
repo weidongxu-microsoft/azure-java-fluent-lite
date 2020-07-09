@@ -33,8 +33,8 @@ import com.azure.resourcemanager.generated.storage.fluent.inner.ObjectReplicatio
 import reactor.core.publisher.Mono;
 
 /** An instance of this class provides access to all the operations defined in ObjectReplicationPoliciesOperations. */
-public final class ObjectReplicationPoliciesOperationsImpl {
-    private final ClientLogger logger = new ClientLogger(ObjectReplicationPoliciesOperationsImpl.class);
+public final class ObjectReplicationPoliciesOperationsClientImpl {
+    private final ClientLogger logger = new ClientLogger(ObjectReplicationPoliciesOperationsClientImpl.class);
 
     /** The proxy service used to perform REST calls. */
     private final ObjectReplicationPoliciesOperationsService service;
@@ -43,11 +43,11 @@ public final class ObjectReplicationPoliciesOperationsImpl {
     private final StorageManagementClientImpl client;
 
     /**
-     * Initializes an instance of ObjectReplicationPoliciesOperationsImpl.
+     * Initializes an instance of ObjectReplicationPoliciesOperationsClientImpl.
      *
      * @param client the instance of the service client containing this operation class.
      */
-    ObjectReplicationPoliciesOperationsImpl(StorageManagementClientImpl client) {
+    ObjectReplicationPoliciesOperationsClientImpl(StorageManagementClientImpl client) {
         this.service =
             RestProxy
                 .create(

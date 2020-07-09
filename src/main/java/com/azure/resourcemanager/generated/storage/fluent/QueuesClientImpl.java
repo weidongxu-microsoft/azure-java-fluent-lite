@@ -36,8 +36,8 @@ import java.util.Map;
 import reactor.core.publisher.Mono;
 
 /** An instance of this class provides access to all the operations defined in Queues. */
-public final class QueuesImpl {
-    private final ClientLogger logger = new ClientLogger(QueuesImpl.class);
+public final class QueuesClientImpl {
+    private final ClientLogger logger = new ClientLogger(QueuesClientImpl.class);
 
     /** The proxy service used to perform REST calls. */
     private final QueuesService service;
@@ -46,11 +46,11 @@ public final class QueuesImpl {
     private final StorageManagementClientImpl client;
 
     /**
-     * Initializes an instance of QueuesImpl.
+     * Initializes an instance of QueuesClientImpl.
      *
      * @param client the instance of the service client containing this operation class.
      */
-    QueuesImpl(StorageManagementClientImpl client) {
+    QueuesClientImpl(StorageManagementClientImpl client) {
         this.service = RestProxy.create(QueuesService.class, client.getHttpPipeline(), client.getSerializerAdapter());
         this.client = client;
     }

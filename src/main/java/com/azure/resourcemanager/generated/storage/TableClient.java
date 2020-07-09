@@ -10,16 +10,16 @@ import com.azure.core.annotation.ServiceMethod;
 import com.azure.core.http.rest.PagedIterable;
 import com.azure.core.management.exception.ManagementException;
 import com.azure.core.util.Context;
-import com.azure.resourcemanager.generated.storage.fluent.TablesImpl;
+import com.azure.resourcemanager.generated.storage.fluent.TablesClientImpl;
 import com.azure.resourcemanager.generated.storage.fluent.inner.TableInner;
 
 /** Initializes a new instance of the synchronous StorageManagementClient type. */
 @ServiceClient(builder = StorageManagementClientBuilder.class)
 public final class TableClient {
-    private TablesImpl serviceClient;
+    private TablesClientImpl serviceClient;
 
     /** Initializes an instance of Tables client. */
-    TableClient(TablesImpl serviceClient) {
+    TableClient(TablesClientImpl serviceClient) {
         this.serviceClient = serviceClient;
     }
 

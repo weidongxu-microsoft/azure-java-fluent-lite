@@ -34,10 +34,8 @@ public class StorageManager {
         HttpPolicyProviders.addBeforeRetryPolicies(policies);
         policies.add(new RetryPolicy());
         policies.add(new AddDatePolicy());
-        if (credential != null) {
-            policies.add(new BearerTokenAuthenticationPolicy(credential,
-                    profile.environment().getManagementEndpoint() + "/.default"));
-        }
+        policies.add(new BearerTokenAuthenticationPolicy(credential,
+                profile.environment().getManagementEndpoint() + "/.default"));
         HttpPolicyProviders.addAfterRetryPolicies(policies);
         policies.add(new HttpLoggingPolicy(new HttpLogOptions()));
         return new HttpPipelineBuilder()

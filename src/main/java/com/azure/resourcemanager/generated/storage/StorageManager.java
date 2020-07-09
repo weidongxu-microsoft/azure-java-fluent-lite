@@ -29,7 +29,7 @@ public class StorageManager {
 
     private static HttpPipeline buildHttpPipeline(TokenCredential credential, AzureProfile profile) {
         List<HttpPipelinePolicy> policies = new ArrayList<>();
-        policies.add(new UserAgentPolicy());
+        policies.add(new UserAgentPolicy("azsdk-java-com.azure.resourcemanager.generated.storage/0.1.0-SNAPSHOT"));
         policies.add(new RequestIdPolicy());
         HttpPolicyProviders.addBeforeRetryPolicies(policies);
         policies.add(new RetryPolicy());

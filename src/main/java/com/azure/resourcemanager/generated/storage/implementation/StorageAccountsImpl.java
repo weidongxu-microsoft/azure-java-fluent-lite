@@ -18,6 +18,11 @@ public class StorageAccountsImpl implements StorageAccounts {
     }
 
     @Override
+    public StorageAccountsClient inner() {
+        return inner;
+    }
+
+    @Override
     public StorageAccountListKeysResultInner listKeys(String resourceGroupName, String accountName, ListKeyExpand expand) {
         return inner.listKeys(resourceGroupName, accountName, expand);
     }

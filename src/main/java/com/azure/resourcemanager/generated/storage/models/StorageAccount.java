@@ -3,13 +3,17 @@ package com.azure.resourcemanager.generated.storage.models;
 import com.azure.resourcemanager.fluentcore.models.Appliable;
 import com.azure.resourcemanager.fluentcore.models.Creatable;
 import com.azure.resourcemanager.fluentcore.models.GroupableResource;
+import com.azure.resourcemanager.fluentcore.models.HasInner;
 import com.azure.resourcemanager.fluentcore.models.Refreshable;
 import com.azure.resourcemanager.fluentcore.models.Resource;
 import com.azure.resourcemanager.fluentcore.models.Updatable;
+import com.azure.resourcemanager.generated.storage.fluent.inner.StorageAccountInner;
 
 import java.time.OffsetDateTime;
 
-public interface StorageAccount extends GroupableResource,
+public interface StorageAccount extends
+        HasInner<StorageAccountInner>,
+        GroupableResource,
         Refreshable<StorageAccount>,
         Updatable<StorageAccount.Update> {
     /**

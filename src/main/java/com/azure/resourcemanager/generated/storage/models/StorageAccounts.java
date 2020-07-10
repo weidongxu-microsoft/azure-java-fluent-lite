@@ -6,9 +6,12 @@ import com.azure.resourcemanager.fluentcore.collection.SupportsDeletingByResourc
 import com.azure.resourcemanager.fluentcore.collection.SupportsGettingByResourceGroup;
 import com.azure.resourcemanager.fluentcore.collection.SupportsListing;
 import com.azure.resourcemanager.fluentcore.collection.SupportsListingByResourceGroup;
+import com.azure.resourcemanager.fluentcore.models.HasInner;
+import com.azure.resourcemanager.generated.storage.StorageAccountsClient;
 import com.azure.resourcemanager.generated.storage.fluent.inner.StorageAccountListKeysResultInner;
 
 public interface StorageAccounts extends
+        HasInner<StorageAccountsClient>,
         SupportsCreating<StorageAccount.DefinitionStages.Blank>,
         SupportsDeletingByResourceGroup,
         SupportsGettingByResourceGroup<StorageAccount>,

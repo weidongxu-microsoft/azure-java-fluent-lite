@@ -49,6 +49,7 @@ public class StorageAccountImpl implements
         resetCreateUpdateParameters();
     }
 
+    @Override
     public StorageAccountInner inner() {
         return inner;
     }

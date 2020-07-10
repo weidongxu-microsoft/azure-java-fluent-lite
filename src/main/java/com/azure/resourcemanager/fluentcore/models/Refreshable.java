@@ -3,6 +3,8 @@
 
 package com.azure.resourcemanager.fluentcore.models;
 
+import com.azure.core.util.Context;
+
 /**
  * Base class for resources that can be refreshed to get the latest state.
  *
@@ -15,4 +17,12 @@ public interface Refreshable<T> {
      * @return the refreshed resource
      */
     T refresh();
+
+    /**
+     * Refreshes the resource to sync with Azure.
+     *
+     * @param context The context to associate with this operation.
+     * @return the refreshed resource
+     */
+    T refresh(Context context);
 }

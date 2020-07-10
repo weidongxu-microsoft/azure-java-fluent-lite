@@ -1,5 +1,6 @@
 package com.azure.resourcemanager.generated.storage.implementation;
 
+import com.azure.core.util.Context;
 import com.azure.resourcemanager.fluentcore.models.Region;
 import com.azure.resourcemanager.fluentcore.utils.ResourceUtils;
 import com.azure.resourcemanager.generated.storage.models.AccessTier;
@@ -45,6 +46,7 @@ public class StorageAccountImpl implements
         this.name = name;
         this.inner = inner;
         this.client = client;
+        resetCreateUpdateParameters();
     }
 
     public StorageAccountInner inner() {
@@ -299,23 +301,48 @@ public class StorageAccountImpl implements
     }
 
     @Override
+    public StorageAccountImpl withAccessTier(AccessTier accessTier) {
+        if (isInCreateMode()) {
+            this.createParameter.withAccessTier(accessTier);
+        } else {
+            this.updateParameter.withAccessTier(accessTier);
+        }
+        return this;
+    }
+
+    @Override
     public StorageAccount apply() {
+        return apply(Context.NONE);
+    }
+
+    @Override
+    public StorageAccount apply(Context context) {
         this.updateParameter.withTags(inner().tags());
-        StorageAccountInner inner = client.update(this.resourceGroupName(), this.name(), this.updateParameter);
+        StorageAccountInner inner = client.update(this.resourceGroupName(), this.name(), this.updateParameter, context);
         return this.setInner(inner);
     }
 
     @Override
     public StorageAccount create() {
+        return create(Context.NONE);
+    }
+
+    @Override
+    public StorageAccount create(Context context) {
         this.createParameter.withLocation(inner().location());
         this.createParameter.withTags(inner().tags());
-        StorageAccountInner inner = client.create(this.resourceGroupName(), this.name(), this.createParameter);
+        StorageAccountInner inner = client.create(this.resourceGroupName(), this.name(), this.createParameter, context);
         return this.setInner(inner);
     }
 
     @Override
     public StorageAccount refresh() {
-        StorageAccountInner inner = client.getByResourceGroup(this.resourceGroupName(), this.name());
+        return refresh(Context.NONE);
+    }
+
+    @Override
+    public StorageAccount refresh(Context context) {
+        StorageAccountInner inner = client.getByResourceGroup(this.resourceGroupName(), this.name(), null, context);
         return this.setInner(inner);
     }
 

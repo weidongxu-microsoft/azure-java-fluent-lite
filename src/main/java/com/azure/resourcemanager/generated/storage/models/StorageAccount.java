@@ -186,11 +186,23 @@ public interface StorageAccount extends GroupableResource,
         }
 
         /**
+         * The stage of the storageaccount definition allowing to specify AccessTier.
+         */
+        interface WithAccessTier {
+            /**
+             * Specifies accessTier.
+             * @param accessTier Required for storage accounts where kind = BlobStorage. The access tier used for billing. Possible values include: 'Hot', 'Cool'
+             * @return the next definition stage
+             */
+            WithCreate withAccessTier(AccessTier accessTier);
+        }
+
+        /**
          * The stage of the definition which contains all the minimum required inputs for
          * the resource to be created (via {@link WithCreate#create()}), but also allows
          * for any other optional settings to be specified.
          */
-        interface WithCreate extends Creatable<StorageAccount>, Resource.DefinitionWithTags<WithCreate> {
+        interface WithCreate extends Creatable<StorageAccount>, Resource.DefinitionWithTags<WithCreate>, WithAccessTier {
         }
     }
 

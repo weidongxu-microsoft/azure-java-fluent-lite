@@ -1,15 +1,15 @@
-package com.azure.resourcemanager.generated.storage;
+package com.azure.resourcemanager.generated.storage.models;
 
 import com.azure.core.util.Context;
+import com.azure.resourcemanager.fluentcore.collection.SupportsCreating;
 import com.azure.resourcemanager.fluentcore.collection.SupportsDeletingByResourceGroup;
 import com.azure.resourcemanager.fluentcore.collection.SupportsGettingByResourceGroup;
 import com.azure.resourcemanager.fluentcore.collection.SupportsListing;
 import com.azure.resourcemanager.fluentcore.collection.SupportsListingByResourceGroup;
 import com.azure.resourcemanager.generated.storage.fluent.inner.StorageAccountListKeysResultInner;
-import com.azure.resourcemanager.generated.storage.models.ListKeyExpand;
 
 public interface StorageAccounts extends
-//        SupportsCreating<StorageAccount.DefinitionStages.Blank>,
+        SupportsCreating<StorageAccount.DefinitionStages.Blank>,
         SupportsDeletingByResourceGroup,
         SupportsGettingByResourceGroup<StorageAccount>,
         SupportsListingByResourceGroup<StorageAccount>,

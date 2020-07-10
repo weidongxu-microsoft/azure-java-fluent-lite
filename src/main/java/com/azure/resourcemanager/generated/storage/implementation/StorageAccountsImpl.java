@@ -2,8 +2,8 @@ package com.azure.resourcemanager.generated.storage.implementation;
 
 import com.azure.core.http.rest.PagedIterable;
 import com.azure.core.util.Context;
-import com.azure.resourcemanager.generated.storage.StorageAccount;
-import com.azure.resourcemanager.generated.storage.StorageAccounts;
+import com.azure.resourcemanager.generated.storage.models.StorageAccount;
+import com.azure.resourcemanager.generated.storage.models.StorageAccounts;
 import com.azure.resourcemanager.generated.storage.StorageAccountsClient;
 import com.azure.resourcemanager.generated.storage.fluent.inner.StorageAccountInner;
 import com.azure.resourcemanager.generated.storage.fluent.inner.StorageAccountListKeysResultInner;
@@ -45,6 +45,10 @@ public class StorageAccountsImpl implements StorageAccounts {
     @Override
     public PagedIterable<StorageAccount> listByResourceGroup(String resourceGroupName) {
         return inner.listByResourceGroup(resourceGroupName).mapPage(this::wrapModel);
+    }
+
+    public StorageAccountImpl define(String name) {
+        return new StorageAccountImpl(name, new StorageAccountInner(), this.inner);
     }
 
     private StorageAccountImpl wrapModel(StorageAccountInner inner) {

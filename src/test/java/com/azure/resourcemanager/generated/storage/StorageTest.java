@@ -4,6 +4,7 @@ import com.azure.core.http.rest.PagedIterable;
 import com.azure.core.management.AzureEnvironment;
 import com.azure.identity.EnvironmentCredentialBuilder;
 import com.azure.resourcemanager.fluentcore.profile.AzureProfile;
+import com.azure.resourcemanager.generated.storage.models.StorageAccount;
 import org.junit.jupiter.api.Test;
 
 public class StorageTest {

@@ -14,13 +14,14 @@ import com.azure.core.http.policy.RetryPolicy;
 import com.azure.core.http.policy.UserAgentPolicy;
 import com.azure.resourcemanager.fluentcore.profile.AzureProfile;
 import com.azure.resourcemanager.generated.storage.implementation.StorageAccountsImpl;
+import com.azure.resourcemanager.generated.storage.models.StorageAccounts;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public final class StorageManager {
 
-    private final StorageManagementClientBuilder innerBuilder;
+    private final StorageManagementClientBuilder clientBuilder;
 
     public static StorageManager authenticate(TokenCredential credential, AzureProfile profile) {
         return authenticate(buildHttpPipeline(credential, profile), profile);
@@ -31,7 +32,7 @@ public final class StorageManager {
     }
 
     private StorageManager(HttpPipeline httpPipeline, AzureProfile profile) {
-        this.innerBuilder = new StorageManagementClientBuilder()
+        this.clientBuilder = new StorageManagementClientBuilder()
                 .pipeline(httpPipeline)
                 .endpoint(profile.environment().getResourceManagerEndpoint())
                 .subscriptionId(profile.subscriptionId());
@@ -53,15 +54,11 @@ public final class StorageManager {
                 .build();
     }
 
-    public StorageManagementClientBuilder innerBuilder() {
-        return innerBuilder;
-    }
-
     private StorageAccounts storageAccounts;
 
     public StorageAccounts storageAccounts() {
         if (this.storageAccounts == null) {
-            this.storageAccounts = new StorageAccountsImpl(innerBuilder.buildStorageAccountsClient());
+            this.storageAccounts = new StorageAccountsImpl(clientBuilder.buildStorageAccountsClient());
         }
         return this.storageAccounts;
     }

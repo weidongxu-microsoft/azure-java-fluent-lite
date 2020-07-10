@@ -10,7 +10,7 @@ import com.azure.core.annotation.ServiceMethod;
 import com.azure.core.http.rest.PagedIterable;
 import com.azure.core.management.exception.ManagementException;
 import com.azure.core.util.Context;
-import com.azure.resourcemanager.generated.storage.fluent.PrivateEndpointConnectionsClientImpl;
+import com.azure.resourcemanager.generated.storage.implementation.PrivateEndpointConnectionsClientImpl;
 import com.azure.resourcemanager.generated.storage.fluent.inner.PrivateEndpointConnectionInner;
 
 /** Initializes a new instance of the synchronous StorageManagementClient type. */

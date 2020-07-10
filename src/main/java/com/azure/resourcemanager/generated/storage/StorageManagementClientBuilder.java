@@ -11,7 +11,7 @@ import com.azure.core.http.policy.CookiePolicy;
 import com.azure.core.http.policy.RetryPolicy;
 import com.azure.core.http.policy.UserAgentPolicy;
 import com.azure.core.management.AzureEnvironment;
-import com.azure.resourcemanager.generated.storage.fluent.StorageManagementClientImpl;
+import com.azure.resourcemanager.generated.storage.implementation.StorageManagementClientImpl;
 
 /** A builder for creating a new instance of the StorageManagementClientImpl type. */
 @ServiceClientBuilder(

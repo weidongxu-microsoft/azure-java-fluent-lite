@@ -10,7 +10,7 @@ import com.azure.core.annotation.ServiceMethod;
 import com.azure.core.http.rest.PagedIterable;
 import com.azure.core.management.exception.ManagementException;
 import com.azure.core.util.Context;
-import com.azure.resourcemanager.generated.storage.fluent.FileSharesClientImpl;
+import com.azure.resourcemanager.generated.storage.implementation.FileSharesClientImpl;
 import com.azure.resourcemanager.generated.storage.fluent.inner.FileShareInner;
 import com.azure.resourcemanager.generated.storage.fluent.inner.FileShareItemInner;
 import com.azure.resourcemanager.generated.storage.models.DeletedShare;

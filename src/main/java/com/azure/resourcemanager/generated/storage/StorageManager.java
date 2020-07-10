@@ -13,18 +13,28 @@ import com.azure.core.http.policy.RequestIdPolicy;
 import com.azure.core.http.policy.RetryPolicy;
 import com.azure.core.http.policy.UserAgentPolicy;
 import com.azure.resourcemanager.fluentcore.profile.AzureProfile;
+import com.azure.resourcemanager.generated.storage.implementation.StorageAccountsImpl;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class StorageManager {
+public final class StorageManager {
+
+    private final StorageManagementClientBuilder innerBuilder;
 
     public static StorageManager authenticate(TokenCredential credential, AzureProfile profile) {
         return authenticate(buildHttpPipeline(credential, profile), profile);
     }
 
     public static StorageManager authenticate(HttpPipeline httpPipeline, AzureProfile profile) {
-        return authenticate(httpPipeline, profile);
+        return new StorageManager(httpPipeline, profile);
+    }
+
+    private StorageManager(HttpPipeline httpPipeline, AzureProfile profile) {
+        this.innerBuilder = new StorageManagementClientBuilder()
+                .pipeline(httpPipeline)
+                .endpoint(profile.environment().getResourceManagerEndpoint())
+                .subscriptionId(profile.subscriptionId());
     }
 
     private static HttpPipeline buildHttpPipeline(TokenCredential credential, AzureProfile profile) {
@@ -43,10 +53,16 @@ public class StorageManager {
                 .build();
     }
 
-//    public StorageAccounts storageAccounts() {
-//        if (this.storageAccounts == null) {
-//            this.storageAccounts = new StorageAccountsImpl(this);
-//        }
-//        return this.storageAccounts;
-//    }
+    public StorageManagementClientBuilder innerBuilder() {
+        return innerBuilder;
+    }
+
+    private StorageAccounts storageAccounts;
+
+    public StorageAccounts storageAccounts() {
+        if (this.storageAccounts == null) {
+            this.storageAccounts = new StorageAccountsImpl(innerBuilder.buildStorageAccountsClient());
+        }
+        return this.storageAccounts;
+    }
 }

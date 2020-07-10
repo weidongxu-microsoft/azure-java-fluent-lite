@@ -12,7 +12,7 @@ import com.azure.core.management.exception.ManagementException;
 import com.azure.core.management.polling.PollResult;
 import com.azure.core.util.Context;
 import com.azure.core.util.polling.SyncPoller;
-import com.azure.resourcemanager.generated.storage.fluent.StorageAccountsClientImpl;
+import com.azure.resourcemanager.generated.storage.implementation.StorageAccountsClientImpl;
 import com.azure.resourcemanager.generated.storage.fluent.inner.BlobRestoreStatusInner;
 import com.azure.resourcemanager.generated.storage.fluent.inner.CheckNameAvailabilityResultInner;
 import com.azure.resourcemanager.generated.storage.fluent.inner.ListAccountSasResponseInner;

@@ -9,7 +9,7 @@ import com.azure.core.annotation.ServiceClient;
 import com.azure.core.annotation.ServiceMethod;
 import com.azure.core.management.exception.ManagementException;
 import com.azure.core.util.Context;
-import com.azure.resourcemanager.generated.storage.fluent.PrivateLinkResourcesClientImpl;
+import com.azure.resourcemanager.generated.storage.implementation.PrivateLinkResourcesClientImpl;
 import com.azure.resourcemanager.generated.storage.fluent.inner.PrivateLinkResourceListResultInner;
 
 /** Initializes a new instance of the synchronous StorageManagementClient type. */

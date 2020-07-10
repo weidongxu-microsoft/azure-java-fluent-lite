@@ -9,7 +9,7 @@ import com.azure.core.annotation.ServiceClient;
 import com.azure.core.annotation.ServiceMethod;
 import com.azure.core.management.exception.ManagementException;
 import com.azure.core.util.Context;
-import com.azure.resourcemanager.generated.storage.fluent.FileServicesClientImpl;
+import com.azure.resourcemanager.generated.storage.implementation.FileServicesClientImpl;
 import com.azure.resourcemanager.generated.storage.fluent.inner.FileServiceItemsInner;
 import com.azure.resourcemanager.generated.storage.fluent.inner.FileServicePropertiesInner;
 

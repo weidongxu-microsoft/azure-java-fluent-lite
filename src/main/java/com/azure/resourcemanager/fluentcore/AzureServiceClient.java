@@ -51,23 +51,7 @@ public abstract class AzureServiceClient {
         ((AzureJacksonAdapter) serializerAdapter).serializer().registerModule(DateTimeDeserializer.getModule());
     }
 
-    private static final String OS;
-    private static final String OS_NAME;
-    private static final String OS_VERSION;
-    private static final String JAVA_VERSION;
-    private static final String SDK_VERSION = "2.0.0-SNAPSHOT";
-
-    static {
-        OS_NAME = System.getProperty("os.name");
-        OS_VERSION = System.getProperty("os.version");
-        OS = OS_NAME + "/" + OS_VERSION;
-        String version = System.getProperty("java.version");
-        JAVA_VERSION = version != null ? version : "Unknown";
-    }
-
     private final SerializerAdapter serializerAdapter = new AzureJacksonAdapter();
-
-    private String sdkName;
 
     /**
      * Gets serializer adapter for JSON serialization/de-serialization.

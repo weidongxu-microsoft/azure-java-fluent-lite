@@ -13,12 +13,14 @@ import com.azure.core.http.policy.RequestIdPolicy;
 import com.azure.core.http.policy.RetryPolicy;
 import com.azure.core.http.policy.UserAgentPolicy;
 import com.azure.core.util.Configuration;
+import com.azure.core.util.CoreUtils;
 import com.azure.resourcemanager.fluentcore.profile.AzureProfile;
 import com.azure.resourcemanager.generated.storage.implementation.StorageAccountsImpl;
 import com.azure.resourcemanager.generated.storage.models.StorageAccounts;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public final class StorageManager {
 
@@ -40,9 +42,14 @@ public final class StorageManager {
     }
 
     private static HttpPipeline buildHttpPipeline(TokenCredential credential, AzureProfile profile) {
+        Map<String, String> properties =
+                CoreUtils.getProperties("azure-resourcemanager-generated-storage.properties");
+
         List<HttpPipelinePolicy> policies = new ArrayList<>();
         policies.add(new UserAgentPolicy(
-                null, "azsdk-java-com.azure.resourcemanager.generated.storage", "0.1.0-SNAPSHOT",
+                null,
+                properties.getOrDefault("name", "UnknownName"),
+                properties.getOrDefault("version", "UnknownVersion"),
                 Configuration.getGlobalConfiguration()));
         policies.add(new RequestIdPolicy());
         HttpPolicyProviders.addBeforeRetryPolicies(policies);

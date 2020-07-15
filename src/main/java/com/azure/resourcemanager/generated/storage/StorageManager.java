@@ -12,9 +12,9 @@ import com.azure.core.http.policy.HttpPolicyProviders;
 import com.azure.core.http.policy.RequestIdPolicy;
 import com.azure.core.http.policy.RetryPolicy;
 import com.azure.core.http.policy.UserAgentPolicy;
+import com.azure.core.management.AzureEnvironment;
 import com.azure.core.util.Configuration;
 import com.azure.core.util.CoreUtils;
-import com.azure.resourcemanager.fluentcore.profile.AzureProfile;
 import com.azure.resourcemanager.generated.storage.implementation.StorageAccountsImpl;
 import com.azure.resourcemanager.generated.storage.models.StorageAccounts;
 
@@ -26,22 +26,25 @@ public final class StorageManager {
 
     private final StorageManagementClientBuilder clientBuilder;
 
-    public static StorageManager authenticate(TokenCredential credential, AzureProfile profile) {
-        return authenticate(buildHttpPipeline(credential, profile), profile);
+    public static StorageManager authenticate(TokenCredential credential,
+                                              AzureEnvironment environment, String subscriptionId) {
+        return authenticate(buildHttpPipeline(credential, environment), environment, subscriptionId);
     }
 
-    public static StorageManager authenticate(HttpPipeline httpPipeline, AzureProfile profile) {
-        return new StorageManager(httpPipeline, profile);
+    public static StorageManager authenticate(HttpPipeline httpPipeline,
+                                              AzureEnvironment environment, String subscriptionId) {
+        return new StorageManager(httpPipeline, environment, subscriptionId);
     }
 
-    private StorageManager(HttpPipeline httpPipeline, AzureProfile profile) {
+    private StorageManager(HttpPipeline httpPipeline,
+                           AzureEnvironment environment, String subscriptionId) {
         this.clientBuilder = new StorageManagementClientBuilder()
                 .pipeline(httpPipeline)
-                .endpoint(profile.environment().getResourceManagerEndpoint())
-                .subscriptionId(profile.subscriptionId());
+                .endpoint(environment.getResourceManagerEndpoint())
+                .subscriptionId(subscriptionId);
     }
 
-    private static HttpPipeline buildHttpPipeline(TokenCredential credential, AzureProfile profile) {
+    private static HttpPipeline buildHttpPipeline(TokenCredential credential, AzureEnvironment environment) {
         Map<String, String> properties =
                 CoreUtils.getProperties("azure-resourcemanager-generated-storage.properties");
 
@@ -56,7 +59,7 @@ public final class StorageManager {
         policies.add(new RetryPolicy());
         policies.add(new AddDatePolicy());
         policies.add(new BearerTokenAuthenticationPolicy(credential,
-                profile.environment().getManagementEndpoint() + "/.default"));
+                environment.getManagementEndpoint() + "/.default"));
         HttpPolicyProviders.addAfterRetryPolicies(policies);
         policies.add(new HttpLoggingPolicy(new HttpLogOptions()));
         return new HttpPipelineBuilder()

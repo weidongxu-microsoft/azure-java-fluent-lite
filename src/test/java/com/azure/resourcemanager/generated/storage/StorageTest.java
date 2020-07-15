@@ -2,9 +2,9 @@ package com.azure.resourcemanager.generated.storage;
 
 import com.azure.core.http.rest.PagedIterable;
 import com.azure.core.management.AzureEnvironment;
+import com.azure.core.util.Configuration;
 import com.azure.identity.EnvironmentCredentialBuilder;
 import com.azure.resourcemanager.fluentcore.models.Region;
-import com.azure.resourcemanager.fluentcore.profile.AzureProfile;
 import com.azure.resourcemanager.generated.storage.models.AccessTier;
 import com.azure.resourcemanager.generated.storage.models.Kind;
 import com.azure.resourcemanager.generated.storage.models.Sku;
@@ -19,7 +19,8 @@ public class StorageTest {
     public void testStorageAccount() {
         StorageManager manager = StorageManager.authenticate(
                 new EnvironmentCredentialBuilder().build(),
-                new AzureProfile(AzureEnvironment.AZURE)
+                AzureEnvironment.AZURE,
+                Configuration.getGlobalConfiguration().get("AZURE_SUBSCRIPTION_ID")
         );
 
         PagedIterable<StorageAccount> storageAccounts = manager.storageAccounts().list();

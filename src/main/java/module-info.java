@@ -18,6 +18,5 @@ module com.azure.java.resourcemanager.generated.storage {
     exports com.azure.resourcemanager.fluentcore;
     exports com.azure.resourcemanager.fluentcore.models;
     exports com.azure.resourcemanager.fluentcore.collection;
-    exports com.azure.resourcemanager.fluentcore.profile;
     exports com.azure.resourcemanager.fluentcore.utils;
 }

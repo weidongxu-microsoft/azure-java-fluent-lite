@@ -13,16 +13,14 @@ import java.util.Objects;
  */
 public class AzureProfile {
 
-    private final String tenantId;
     private final String subscriptionId;
     private final AzureEnvironment environment;
 
     /**
      * Creates AzureProfile instance with Azure environment. The global environment is {@link AzureEnvironment#AZURE}.
-     * The tenant ID and subscription ID can be set via environment variables. The environment variables are expected
+     * The subscription ID can be set via environment variables. The environment variables are expected
      * as below:
      * <ul>
-     *     <li>{@link Configuration#PROPERTY_AZURE_TENANT_ID AZURE_TENANT_ID}</li>
      *     <li>{@link Configuration#PROPERTY_AZURE_SUBSCRIPTION_ID AZURE_SUBSCRIPTION_ID}</li>
      * </ul>
      *
@@ -32,32 +30,21 @@ public class AzureProfile {
         Objects.requireNonNull(environment);
         this.environment = environment;
         Configuration configuration = Configuration.getGlobalConfiguration();
-        this.tenantId = configuration.get(Configuration.PROPERTY_AZURE_TENANT_ID);
         this.subscriptionId = configuration.get(Configuration.PROPERTY_AZURE_SUBSCRIPTION_ID);
     }
 
     /**
-     * Creates AzureProfile instance with tenant ID, subscription ID and Azure environment.
+     * Creates AzureProfile instance with subscription ID and Azure environment.
      * The global environment is {@link AzureEnvironment#AZURE}.
      *
-     * @param tenantId the tenant ID required for Graph Rbac
      * @param subscriptionId the subscription ID required for resource management
      * @param environment the Azure environment
      */
-    public AzureProfile(String tenantId, String subscriptionId, AzureEnvironment environment) {
+    public AzureProfile(String subscriptionId, AzureEnvironment environment) {
+        Objects.requireNonNull(subscriptionId);
         Objects.requireNonNull(environment);
-        this.tenantId = tenantId;
         this.subscriptionId = subscriptionId;
         this.environment = environment;
-    }
-
-    /**
-     * Gets tenant ID.
-     *
-     * @return the tenant ID
-     */
-    public String tenantId() {
-        return this.tenantId;
     }
 
     /**

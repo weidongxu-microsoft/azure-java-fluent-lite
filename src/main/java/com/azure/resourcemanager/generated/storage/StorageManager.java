@@ -21,6 +21,7 @@ import com.azure.resourcemanager.generated.storage.models.StorageAccounts;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public final class StorageManager {
 
@@ -28,6 +29,8 @@ public final class StorageManager {
 
     public static StorageManager authenticate(TokenCredential credential,
                                               AzureEnvironment environment, String subscriptionId) {
+        Objects.requireNonNull(credential, "'credential' cannot be null.");
+        Objects.requireNonNull(environment, "'environment' cannot be null.");
         return authenticate(buildHttpPipeline(credential, environment), environment, subscriptionId);
     }
 
@@ -38,6 +41,9 @@ public final class StorageManager {
 
     private StorageManager(HttpPipeline httpPipeline,
                            AzureEnvironment environment, String subscriptionId) {
+        Objects.requireNonNull(httpPipeline, "'httpPipeline' cannot be null.");
+        Objects.requireNonNull(environment, "'environment' cannot be null.");
+        Objects.requireNonNull(subscriptionId, "'subscriptionId' cannot be null.");
         this.clientBuilder = new StorageManagementClientBuilder()
                 .pipeline(httpPipeline)
                 .endpoint(environment.getResourceManagerEndpoint())

@@ -1,5 +1,7 @@
 package com.azure.resourcemanager.generated.storage;
 
+import com.azure.core.http.policy.HttpLogDetailLevel;
+import com.azure.core.http.policy.HttpLogOptions;
 import com.azure.core.http.rest.PagedIterable;
 import com.azure.core.management.AzureEnvironment;
 import com.azure.core.util.Configuration;
@@ -17,11 +19,14 @@ public class StorageTest {
 
     @Test
     public void testStorageAccount() {
-        StorageManager manager = StorageManager.authenticate(
-                new EnvironmentCredentialBuilder().build(),
-                AzureEnvironment.AZURE,
-                Configuration.getGlobalConfiguration().get("AZURE_SUBSCRIPTION_ID")
-        );
+        StorageManager manager = StorageManager
+                .configure()
+                .withLogOptions(new HttpLogOptions().setLogLevel(HttpLogDetailLevel.BODY_AND_HEADERS))
+                .authenticate(
+                        new EnvironmentCredentialBuilder().build(),
+                        AzureEnvironment.AZURE,
+                        Configuration.getGlobalConfiguration().get("AZURE_SUBSCRIPTION_ID")
+                );
 
         PagedIterable<StorageAccount> storageAccounts = manager.storageAccounts().list();
         long count = storageAccounts.stream().count();

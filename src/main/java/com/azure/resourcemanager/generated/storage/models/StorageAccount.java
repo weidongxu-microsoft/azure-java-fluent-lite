@@ -7,7 +7,7 @@ import com.azure.resourcemanager.fluentcore.models.HasInner;
 import com.azure.resourcemanager.fluentcore.models.Refreshable;
 import com.azure.resourcemanager.fluentcore.models.Resource;
 import com.azure.resourcemanager.fluentcore.models.Updatable;
-import com.azure.resourcemanager.generated.storage.fluent.inner.StorageAccountInner;
+import com.azure.resourcemanager.generated.storage.models.inner.StorageAccountInner;
 
 import java.time.OffsetDateTime;
 

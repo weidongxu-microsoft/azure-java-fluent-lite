@@ -10,8 +10,8 @@ import com.azure.core.annotation.ServiceMethod;
 import com.azure.core.management.exception.ManagementException;
 import com.azure.core.util.Context;
 import com.azure.resourcemanager.generated.storage.implementation.TableServicesClientImpl;
-import com.azure.resourcemanager.generated.storage.fluent.inner.ListTableServicesInner;
-import com.azure.resourcemanager.generated.storage.fluent.inner.TableServicePropertiesInner;
+import com.azure.resourcemanager.generated.storage.models.inner.ListTableServicesInner;
+import com.azure.resourcemanager.generated.storage.models.inner.TableServicePropertiesInner;
 import com.azure.resourcemanager.generated.storage.models.CorsRules;
 
 /** Initializes a new instance of the synchronous StorageManagementClient type. */

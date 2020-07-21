@@ -24,7 +24,7 @@ import com.azure.core.management.exception.ManagementException;
 import com.azure.core.util.Context;
 import com.azure.core.util.FluxUtil;
 import com.azure.core.util.logging.ClientLogger;
-import com.azure.resourcemanager.generated.storage.fluent.inner.ManagementPolicyInner;
+import com.azure.resourcemanager.generated.storage.models.inner.ManagementPolicyInner;
 import com.azure.resourcemanager.generated.storage.models.ManagementPolicyName;
 import com.azure.resourcemanager.generated.storage.models.ManagementPolicySchema;
 import reactor.core.publisher.Mono;

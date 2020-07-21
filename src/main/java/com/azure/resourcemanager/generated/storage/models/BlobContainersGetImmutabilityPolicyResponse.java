@@ -7,7 +7,7 @@ package com.azure.resourcemanager.generated.storage.models;
 import com.azure.core.http.HttpHeaders;
 import com.azure.core.http.HttpRequest;
 import com.azure.core.http.rest.ResponseBase;
-import com.azure.resourcemanager.generated.storage.fluent.inner.ImmutabilityPolicyInner;
+import com.azure.resourcemanager.generated.storage.models.inner.ImmutabilityPolicyInner;
 
 /** Contains all response data for the getImmutabilityPolicy operation. */
 public final class BlobContainersGetImmutabilityPolicyResponse

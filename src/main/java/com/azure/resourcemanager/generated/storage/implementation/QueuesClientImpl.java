@@ -29,9 +29,9 @@ import com.azure.core.management.exception.ManagementException;
 import com.azure.core.util.Context;
 import com.azure.core.util.FluxUtil;
 import com.azure.core.util.logging.ClientLogger;
-import com.azure.resourcemanager.generated.storage.fluent.inner.ListQueueInner;
-import com.azure.resourcemanager.generated.storage.fluent.inner.ListQueueResourceInner;
-import com.azure.resourcemanager.generated.storage.fluent.inner.StorageQueueInner;
+import com.azure.resourcemanager.generated.storage.models.inner.ListQueueInner;
+import com.azure.resourcemanager.generated.storage.models.inner.ListQueueResourceInner;
+import com.azure.resourcemanager.generated.storage.models.inner.StorageQueueInner;
 import java.util.Map;
 import reactor.core.publisher.Mono;
 

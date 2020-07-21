@@ -11,8 +11,8 @@ import com.azure.core.http.rest.PagedIterable;
 import com.azure.core.management.exception.ManagementException;
 import com.azure.core.util.Context;
 import com.azure.resourcemanager.generated.storage.implementation.QueuesClientImpl;
-import com.azure.resourcemanager.generated.storage.fluent.inner.ListQueueInner;
-import com.azure.resourcemanager.generated.storage.fluent.inner.StorageQueueInner;
+import com.azure.resourcemanager.generated.storage.models.inner.ListQueueInner;
+import com.azure.resourcemanager.generated.storage.models.inner.StorageQueueInner;
 import java.util.Map;
 
 /** Initializes a new instance of the synchronous StorageManagementClient type. */

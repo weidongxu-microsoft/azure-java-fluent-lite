@@ -28,8 +28,8 @@ import com.azure.core.management.exception.ManagementException;
 import com.azure.core.util.Context;
 import com.azure.core.util.FluxUtil;
 import com.azure.core.util.logging.ClientLogger;
-import com.azure.resourcemanager.generated.storage.fluent.inner.ListTableResourceInner;
-import com.azure.resourcemanager.generated.storage.fluent.inner.TableInner;
+import com.azure.resourcemanager.generated.storage.models.inner.ListTableResourceInner;
+import com.azure.resourcemanager.generated.storage.models.inner.TableInner;
 import reactor.core.publisher.Mono;
 
 /** An instance of this class provides access to all the operations defined in Tables. */

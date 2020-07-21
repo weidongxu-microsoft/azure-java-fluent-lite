@@ -23,8 +23,8 @@ import com.azure.core.management.exception.ManagementException;
 import com.azure.core.util.Context;
 import com.azure.core.util.FluxUtil;
 import com.azure.core.util.logging.ClientLogger;
-import com.azure.resourcemanager.generated.storage.fluent.inner.FileServiceItemsInner;
-import com.azure.resourcemanager.generated.storage.fluent.inner.FileServicePropertiesInner;
+import com.azure.resourcemanager.generated.storage.models.inner.FileServiceItemsInner;
+import com.azure.resourcemanager.generated.storage.models.inner.FileServicePropertiesInner;
 import reactor.core.publisher.Mono;
 
 /** An instance of this class provides access to all the operations defined in FileServices. */

@@ -24,8 +24,8 @@ import com.azure.core.management.exception.ManagementException;
 import com.azure.core.util.Context;
 import com.azure.core.util.FluxUtil;
 import com.azure.core.util.logging.ClientLogger;
-import com.azure.resourcemanager.generated.storage.fluent.inner.OperationInner;
-import com.azure.resourcemanager.generated.storage.fluent.inner.OperationListResultInner;
+import com.azure.resourcemanager.generated.storage.models.inner.OperationInner;
+import com.azure.resourcemanager.generated.storage.models.inner.OperationListResultInner;
 import reactor.core.publisher.Mono;
 
 /** An instance of this class provides access to all the operations defined in Operations. */

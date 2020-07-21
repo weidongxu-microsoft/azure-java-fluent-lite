@@ -20,7 +20,7 @@ import com.azure.resourcemanager.generated.storage.models.RoutingPreference;
 import com.azure.resourcemanager.generated.storage.models.Sku;
 import com.azure.resourcemanager.generated.storage.models.StorageAccount;
 import com.azure.resourcemanager.generated.storage.StorageAccountsClient;
-import com.azure.resourcemanager.generated.storage.fluent.inner.StorageAccountInner;
+import com.azure.resourcemanager.generated.storage.models.inner.StorageAccountInner;
 import com.azure.resourcemanager.generated.storage.models.StorageAccountCreateParameters;
 import com.azure.resourcemanager.generated.storage.models.StorageAccountUpdateParameters;
 

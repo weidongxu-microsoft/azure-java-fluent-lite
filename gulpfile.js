@@ -98,20 +98,20 @@ function handleInput(projects, cb) {
 }
 
 function codegen(project, cb) {
-    if (!args['preserve']) {
-        const sourcesToDelete = path.join(
-            mappings[project].dir,
-            '/src/main/java/',
-            mappings[project].package.replace(/\./g, '/'));
-
-        deleteFolderRecursive(sourcesToDelete);
-    }
+//    if (!args['preserve']) {
+//        const sourcesToDelete = path.join(
+//            mappings[project].dir,
+//            '/src/main/java/',
+//            mappings[project].package.replace(/\./g, '/'));
+//
+//        deleteFolderRecursive(sourcesToDelete);
+//    }
 
     // path.join won't work if specRoot is a URL
     const readmeFile = specRoot + '/' + mappings[project].source;
 
     console.log('Generating "' + project + '" from spec file ' + readmeFile);
-    var generator = '--fluent';
+    var generator = '--fluent --lite';
     if (mappings[project].fluent !== null && mappings[project].fluent === false) {
         generator = '';
     }

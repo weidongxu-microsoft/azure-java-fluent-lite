@@ -27,8 +27,8 @@ import com.azure.core.management.exception.ManagementException;
 import com.azure.core.util.Context;
 import com.azure.core.util.FluxUtil;
 import com.azure.core.util.logging.ClientLogger;
-import com.azure.resourcemanager.generated.storage.fluent.inner.BlobServiceItemsInner;
-import com.azure.resourcemanager.generated.storage.fluent.inner.BlobServicePropertiesInner;
+import com.azure.resourcemanager.generated.storage.models.inner.BlobServiceItemsInner;
+import com.azure.resourcemanager.generated.storage.models.inner.BlobServicePropertiesInner;
 import reactor.core.publisher.Mono;
 
 /** An instance of this class provides access to all the operations defined in BlobServices. */

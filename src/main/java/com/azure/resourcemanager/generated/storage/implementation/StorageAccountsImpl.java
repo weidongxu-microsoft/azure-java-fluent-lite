@@ -5,8 +5,8 @@ import com.azure.core.util.Context;
 import com.azure.resourcemanager.generated.storage.models.StorageAccount;
 import com.azure.resourcemanager.generated.storage.models.StorageAccounts;
 import com.azure.resourcemanager.generated.storage.StorageAccountsClient;
-import com.azure.resourcemanager.generated.storage.fluent.inner.StorageAccountInner;
-import com.azure.resourcemanager.generated.storage.fluent.inner.StorageAccountListKeysResultInner;
+import com.azure.resourcemanager.generated.storage.models.inner.StorageAccountInner;
+import com.azure.resourcemanager.generated.storage.models.inner.StorageAccountListKeysResultInner;
 import com.azure.resourcemanager.generated.storage.models.ListKeyExpand;
 
 public class StorageAccountsImpl implements StorageAccounts {

@@ -3,12 +3,12 @@ module com.azure.java.resourcemanager.generated.storage {
 
     exports com.azure.resourcemanager.generated.storage;
     exports com.azure.resourcemanager.generated.storage.models;
-    exports com.azure.resourcemanager.generated.storage.fluent.inner;
+    exports com.azure.resourcemanager.generated.storage.models.inner;
 
     opens com.azure.resourcemanager.generated.storage.models to
             com.fasterxml.jackson.databind,
             com.azure.core;
-    opens com.azure.resourcemanager.generated.storage.fluent.inner to
+    opens com.azure.resourcemanager.generated.storage.models.inner to
             com.fasterxml.jackson.databind,
             com.azure.core;
 

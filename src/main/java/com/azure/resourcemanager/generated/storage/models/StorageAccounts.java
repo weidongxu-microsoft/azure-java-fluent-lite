@@ -8,7 +8,7 @@ import com.azure.resourcemanager.fluentcore.collection.SupportsListing;
 import com.azure.resourcemanager.fluentcore.collection.SupportsListingByResourceGroup;
 import com.azure.resourcemanager.fluentcore.models.HasInner;
 import com.azure.resourcemanager.generated.storage.StorageAccountsClient;
-import com.azure.resourcemanager.generated.storage.fluent.inner.StorageAccountListKeysResultInner;
+import com.azure.resourcemanager.generated.storage.models.inner.StorageAccountListKeysResultInner;
 
 public interface StorageAccounts extends
         HasInner<StorageAccountsClient>,

@@ -23,8 +23,8 @@ import com.azure.core.management.exception.ManagementException;
 import com.azure.core.util.Context;
 import com.azure.core.util.FluxUtil;
 import com.azure.core.util.logging.ClientLogger;
-import com.azure.resourcemanager.generated.storage.fluent.inner.ListQueueServicesInner;
-import com.azure.resourcemanager.generated.storage.fluent.inner.QueueServicePropertiesInner;
+import com.azure.resourcemanager.generated.storage.models.inner.ListQueueServicesInner;
+import com.azure.resourcemanager.generated.storage.models.inner.QueueServicePropertiesInner;
 import com.azure.resourcemanager.generated.storage.models.CorsRules;
 import reactor.core.publisher.Mono;
 

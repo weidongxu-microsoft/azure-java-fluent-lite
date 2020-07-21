@@ -63,7 +63,7 @@ public class StorageAccountImpl implements
         this.updateParameter = new StorageAccountUpdateParameters();
     }
 
-    public StorageAccountImpl setInner(StorageAccountInner inner) {
+    private StorageAccountImpl setInner(StorageAccountInner inner) {
         resetCreateUpdateParameters();
         this.inner = inner;
         return this;

@@ -111,7 +111,7 @@ function codegen(project, cb) {
     const readmeFile = specRoot + '/' + mappings[project].source;
 
     console.log('Generating "' + project + '" from spec file ' + readmeFile);
-    var generator = '--fluent --lite';
+    var generator = '--fluent=lite';
     if (mappings[project].fluent !== null && mappings[project].fluent === false) {
         generator = '';
     }
@@ -126,7 +126,7 @@ function codegen(project, cb) {
     cmd = autoRestExe + ' ' + readmeFile +
                         ' --java ' +
                         ' --azure-arm=true ' +
-                        ' --track1-naming --implementation-subpackage=fluent --sync-methods=all --required-parameter-client-methods --add-context-parameter --context-client-method-parameter --client-side-validations --client-logger --generate-sync-async-clients ' +
+                        ' --track1-naming --implementation-subpackage=implementation --sync-methods=all --required-parameter-client-methods --add-context-parameter --context-client-method-parameter --client-side-validations --client-logger --generate-sync-async-clients ' +
                         generator +
                         ` --java.namespace=${mappings[project].package} ` +
                         ` --java.output-folder=${outDir} ` +

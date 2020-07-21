@@ -30,12 +30,12 @@ import com.azure.core.management.exception.ManagementException;
 import com.azure.core.util.Context;
 import com.azure.core.util.FluxUtil;
 import com.azure.core.util.logging.ClientLogger;
-import com.azure.resourcemanager.generated.storage.models.inner.FileShareInner;
-import com.azure.resourcemanager.generated.storage.models.inner.FileShareItemInner;
-import com.azure.resourcemanager.generated.storage.models.inner.FileShareItemsInner;
 import com.azure.resourcemanager.generated.storage.models.DeletedShare;
 import com.azure.resourcemanager.generated.storage.models.GetShareExpand;
 import com.azure.resourcemanager.generated.storage.models.ListSharesExpand;
+import com.azure.resourcemanager.generated.storage.models.inner.FileShareInner;
+import com.azure.resourcemanager.generated.storage.models.inner.FileShareItemInner;
+import com.azure.resourcemanager.generated.storage.models.inner.FileShareItemsInner;
 import reactor.core.publisher.Mono;
 
 /** An instance of this class provides access to all the operations defined in FileShares. */

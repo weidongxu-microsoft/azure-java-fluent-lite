@@ -11,11 +11,11 @@ import com.azure.core.http.rest.PagedIterable;
 import com.azure.core.management.exception.ManagementException;
 import com.azure.core.util.Context;
 import com.azure.resourcemanager.generated.storage.implementation.FileSharesClientImpl;
-import com.azure.resourcemanager.generated.storage.models.inner.FileShareInner;
-import com.azure.resourcemanager.generated.storage.models.inner.FileShareItemInner;
 import com.azure.resourcemanager.generated.storage.models.DeletedShare;
 import com.azure.resourcemanager.generated.storage.models.GetShareExpand;
 import com.azure.resourcemanager.generated.storage.models.ListSharesExpand;
+import com.azure.resourcemanager.generated.storage.models.inner.FileShareInner;
+import com.azure.resourcemanager.generated.storage.models.inner.FileShareItemInner;
 
 /** Initializes a new instance of the synchronous StorageManagementClient type. */
 @ServiceClient(builder = StorageManagementClientBuilder.class)

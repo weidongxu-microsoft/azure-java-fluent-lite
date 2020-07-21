@@ -33,13 +33,6 @@ import com.azure.core.util.FluxUtil;
 import com.azure.core.util.logging.ClientLogger;
 import com.azure.core.util.polling.PollerFlux;
 import com.azure.core.util.polling.SyncPoller;
-import com.azure.resourcemanager.generated.storage.models.inner.BlobRestoreStatusInner;
-import com.azure.resourcemanager.generated.storage.models.inner.CheckNameAvailabilityResultInner;
-import com.azure.resourcemanager.generated.storage.models.inner.ListAccountSasResponseInner;
-import com.azure.resourcemanager.generated.storage.models.inner.ListServiceSasResponseInner;
-import com.azure.resourcemanager.generated.storage.models.inner.StorageAccountInner;
-import com.azure.resourcemanager.generated.storage.models.inner.StorageAccountListKeysResultInner;
-import com.azure.resourcemanager.generated.storage.models.inner.StorageAccountListResultInner;
 import com.azure.resourcemanager.generated.storage.models.AccountSasParameters;
 import com.azure.resourcemanager.generated.storage.models.BlobRestoreParameters;
 import com.azure.resourcemanager.generated.storage.models.ListKeyExpand;
@@ -49,18 +42,19 @@ import com.azure.resourcemanager.generated.storage.models.StorageAccountCreatePa
 import com.azure.resourcemanager.generated.storage.models.StorageAccountExpand;
 import com.azure.resourcemanager.generated.storage.models.StorageAccountRegenerateKeyParameters;
 import com.azure.resourcemanager.generated.storage.models.StorageAccountUpdateParameters;
-import com.azure.resourcemanager.fluentcore.collection.InnerSupportsDelete;
-import com.azure.resourcemanager.fluentcore.collection.InnerSupportsGet;
-import com.azure.resourcemanager.fluentcore.collection.InnerSupportsListing;
+import com.azure.resourcemanager.generated.storage.models.inner.BlobRestoreStatusInner;
+import com.azure.resourcemanager.generated.storage.models.inner.CheckNameAvailabilityResultInner;
+import com.azure.resourcemanager.generated.storage.models.inner.ListAccountSasResponseInner;
+import com.azure.resourcemanager.generated.storage.models.inner.ListServiceSasResponseInner;
+import com.azure.resourcemanager.generated.storage.models.inner.StorageAccountInner;
+import com.azure.resourcemanager.generated.storage.models.inner.StorageAccountListKeysResultInner;
+import com.azure.resourcemanager.generated.storage.models.inner.StorageAccountListResultInner;
 import java.nio.ByteBuffer;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /** An instance of this class provides access to all the operations defined in StorageAccounts. */
-public final class StorageAccountsClientImpl
-    implements InnerSupportsGet<StorageAccountInner>,
-        InnerSupportsListing<StorageAccountInner>,
-        InnerSupportsDelete<Void> {
+public final class StorageAccountsClientImpl {
     private final ClientLogger logger = new ClientLogger(StorageAccountsClientImpl.class);
 
     /** The proxy service used to perform REST calls. */
